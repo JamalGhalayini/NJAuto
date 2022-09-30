@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NJAuto.Server", "Server\NJAuto.Server.csproj", "{ECDCE997-2410-4A46-AD51-38BB6A03666D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NJAuto.Server", "Server\NJAuto.Server.csproj", "{ECDCE997-2410-4A46-AD51-38BB6A03666D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NJAuto.Client", "Client\NJAuto.Client.csproj", "{2FE156D7-5CB1-42AD-BB3F-9A79AE06289E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NJAuto.Client", "Client\NJAuto.Client.csproj", "{2FE156D7-5CB1-42AD-BB3F-9A79AE06289E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NJAuto.Shared", "Shared\NJAuto.Shared.csproj", "{0945DAB2-DA45-4677-9E24-C82D9D3118F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NJAuto.Shared", "Shared\NJAuto.Shared.csproj", "{0945DAB2-DA45-4677-9E24-C82D9D3118F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
