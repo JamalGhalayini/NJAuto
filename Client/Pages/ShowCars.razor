@@ -1,0 +1,21 @@
+﻿@page "/Showcars"
+@inject HttpClient Http;
+@if(_cars is null)
+{
+    <p>Loading cars</p>
+}
+else
+{
+    @foreach(var car in _cars)
+    {
+        <CarCard Car="car"></CarCard>
+    }
+}
+
+@code {
+    private IEnumerable<Car>? _cars;
+    protected override async Task OnInitializedAsync()
+    {
+        _cars = await Http.GetFromJsonAsync<IEnumerable<Car>>("/carcontroller"); 
+    }
+}
