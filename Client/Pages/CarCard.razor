@@ -1,5 +1,7 @@
-﻿<MudCard Class="car">
-    <MudCardMedia Image="@Car.Imag" Height="200" />
+﻿<div >
+
+<MudCard Class="car">
+    <MudCardMedia Image="@Car.Imag" Height="200" weight="100"/>
     <MudCardContent>
         <MudText Typo="Typo.h5">@Car.Brand @Car.Model</MudText>
         <MudText Typo="Typo.body2">@Car.year - @Car.Km km</MudText>
@@ -10,6 +12,7 @@
         <MudButton Variant="Variant.Text" Color="Color.Primary">Learn More</MudButton>
     </MudCardActions>*@
 </MudCard>
+</div>
 @code {
     [Parameter,EditorRequired]
     public Car Car { get; set; } = default!; 
