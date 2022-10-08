@@ -1,19 +1,16 @@
-﻿<div >
+﻿
 
-<MudCard Class="car">
-    <MudCardMedia Image="@Car.Imag" Height="200" weight="100"/>
-    <MudCardContent>
-        <MudText Typo="Typo.h5">@Car.Brand @Car.Model</MudText>
-        <MudText Typo="Typo.body2">@Car.year - @Car.Km km</MudText>
-        <MudText Typo="Typo.body2">@Car.Price Price</MudText>
-    </MudCardContent>
-   @* <MudCardActions>
-        <MudButton Variant="Variant.Text" Color="Color.Primary">Share</MudButton>
-        <MudButton Variant="Variant.Text" Color="Color.Primary">Learn More</MudButton>
-    </MudCardActions>*@
-</MudCard>
-</div>
+        <MudCard Class="car" Style="width: 18rem;">
+            <MudCardMedia Image="@Car.Imag" Height="200" />
+            <MudCardContent>
+                <MudText Typo="Typo.h5">@Car.Brand @Car.Model</MudText>
+                <MudText Typo="Typo.body2">@Car.year - @Car.Km km</MudText>
+                <MudText Typo="Typo.body2">@Car.Price Price</MudText>
+            </MudCardContent>
+        </MudCard>
+
+
 @code {
-    [Parameter,EditorRequired]
-    public Car Car { get; set; } = default!; 
+    [Parameter, EditorRequired]
+    public Car Car { get; set; } = default!;
 }
