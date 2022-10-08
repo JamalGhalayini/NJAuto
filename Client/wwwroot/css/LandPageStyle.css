@@ -1,0 +1,52 @@
+﻿.imgBack {
+    max-width: 100%;
+}
+.cont {
+    position: relative;
+    text-align: center;
+    color: white;
+    display: inline-block;
+}
+
+.mapouter {
+    text-align: right;
+    height: 380px;
+    width: 500px;
+  
+}
+.gmap_canvas {
+    overflow: hidden;
+    background: none !important;
+    height: 380px;
+    width: 500px;
+ padding: 20px;
+}
+.borderF {
+    border-left-color: black;
+    border-left-width: 8px;
+    padding: 20px;
+    height: 360px;
+    width: 500px;
+}
+
+ .text-left{
+     
+     font-family:'Baskerville Old Face';
+ }
+.box {
+    display: flex;
+    flex-direction: column;
+  justify-content: space-around;
+  
+}
+.box_item {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+
+}
+   
+      
+
+ 
