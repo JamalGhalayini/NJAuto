@@ -1,0 +1,23 @@
+﻿
+body {
+    background-color: #484848
+}
+.cont {
+    position: relative;
+    min-height: 50vh;
+}
+.main {
+    padding-bottom: 50vh;
+
+}
+.footer {
+    /*background-color: #484848;*/
+    background-color: red;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+}
+
+
+

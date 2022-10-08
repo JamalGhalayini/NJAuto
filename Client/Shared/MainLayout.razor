@@ -1,10 +1,44 @@
 ﻿@inherits LayoutComponentBase
-<MudThemeProvider/>
-<MudDialogProvider/>
-<MudSnackbarProvider/>
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
 
-<MudLayout>
+<MudLayout >
+   
+    <MudAppBar Elevation="1" Color="Color.Dark">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
+        <MudSpacer />
+       <MudImage Style="height: 60px" Src="Images/Logo.PNG" ></MudImage>
+    </MudAppBar>
+    <MudDrawer @bind-Open="@open" Color="Color.Dark" Breakpoint="@breakpoint" Elevation="1" Variant="@DrawerVariant.Responsive" PreserveOpenState="@preserveOpenState">
+        <MudDrawerHeader>
+            <MudImage Src="Images/Logo.PNG" Height="150" Width="200"></MudImage>
+        </MudDrawerHeader>
+        <MudNavMenu>
+            <NavMenu />
+        </MudNavMenu>
+    </MudDrawer>
     <MudMainContent>
-        @Body
+        <div class="cont">
+<div class="main">
+
+            @Body
+        </div>     
+        <footer class="footer">
+            hello
+        </footer>
+</div>
     </MudMainContent>
+
 </MudLayout>
+
+@code {
+    bool open = false;
+    bool preserveOpenState = false;
+    Breakpoint breakpoint = Breakpoint.Xl;
+
+    void ToggleDrawer()
+    {
+        open = !open;
+    }
+}
