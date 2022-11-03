@@ -1,6 +1,6 @@
 ﻿
-body {
-    background-color: #484848
+.black-background {
+    background-color: #484848;
 }
 .cont {
     position: relative;

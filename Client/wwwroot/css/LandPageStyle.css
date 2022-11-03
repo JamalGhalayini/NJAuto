@@ -3,9 +3,9 @@
 }
 .cont {
     position: relative;
-    text-align: center;
-    color: white;
-    display: inline-block;
+width: 100%;
+max-width: 600px;
+   
 }
 
 .mapouter {
@@ -19,14 +19,15 @@
     background: none !important;
     height: 380px;
     width: 500px;
- padding: 20px;
+   padding: 20px;
 }
 .borderF {
     border-left-color: black;
     border-left-width: 8px;
-    padding: 20px;
+   padding: 20px;
     height: 360px;
     width: 500px;
+    color:white;
 }
 
  .text-left{
@@ -46,7 +47,7 @@
     justify-content: flex-end;
 
 }
-   
+
       
 
  
