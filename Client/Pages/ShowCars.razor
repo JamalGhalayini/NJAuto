@@ -8,11 +8,12 @@
 else
 {
     <div class="container-fluid">
+        <CarDetails Car="_selectedCar" />
         <div class="row">
             @foreach (var car in _cars)
             {
                 <div class="col" style=" flex: 0 0 auto; width: 20rem; padding-top: 20px; ">
-                    <CarCard Car="car"></CarCard>
+                    <CarCard Car="car" OnSelected="HandleTrailSelected" />
                 </div>
             }
 
@@ -26,8 +27,13 @@ else
 
 @code {
     private IEnumerable<Car>? _cars;
+    private Car? _selectedCar;
     protected override async Task OnInitializedAsync()
     {
         _cars = await Http.GetFromJsonAsync<IEnumerable<Car>>("/carcontroller");
+    }
+    private void HandleTrailSelected(Car car)
+    {
+        _selectedCar = car;
     }
 }
