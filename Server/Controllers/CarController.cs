@@ -18,7 +18,7 @@ namespace NJAuto.Server.Controllers
                 Imag="Cars/golf.jpg",
                 Brand = "vw",
                 Model = "Golf",
-                year = 2007,
+                Year = 2007,
                 Km = 170000,
                 Price = 40000
             });
@@ -29,7 +29,7 @@ namespace NJAuto.Server.Controllers
                 Imag = "Cars/2012-audi-a3.jpg",
                 Brand = "Audi",
                 Model = "A3",
-                year = 2012,
+                Year = 2012,
                 Km = 150000,
                 Price = 40000
             });

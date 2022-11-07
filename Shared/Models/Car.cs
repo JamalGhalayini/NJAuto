@@ -14,7 +14,8 @@ namespace NJAuto.Shared.Models
         public string Model { get; set; }
         public string Imag { get; set;  }
         public double Km { get; set; }
-        public int year { get; set; }
+        public int Year { get; set; }
         public double Price { get; set; }
+        public string Description { get; set; } 
     }
 }
