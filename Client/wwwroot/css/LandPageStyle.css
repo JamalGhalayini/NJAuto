@@ -25,7 +25,7 @@ max-width: 600px;
     border-left-color: black;
     border-left-width: 8px;
    padding: 20px;
-    height: 360px;
+    height: 410px;
     width: 500px;
     color:white;
 }
@@ -38,14 +38,31 @@ max-width: 600px;
     display: flex;
     flex-direction: column;
   justify-content: space-around;
+ 
   
 }
 .box_item {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: flex-end;
+    justify-content: flex-start;
+    border-width: 50px;
+    border-block-color: black;
+}
+.contact-form-top{
+    top:0;
+}
 
+.open-time {
+    width: 18rem;
+    background-color: #484848;
+    color: white;
+    height: 360px;
+   
+}
+.card-border {
+    border-left-color: black;
+    border-left-width: 8px;
 }
 
       
