@@ -6,9 +6,8 @@
         <MudText Typo="Typo.h5">@Car.Brand @Car.Model</MudText>
         <MudText Typo="Typo.body2">@Car.Year - @Car.Km km</MudText>
         <MudText Typo="Typo.body2">@Car.Price Price</MudText>
-        <button class="btn btn-primary" @onclick="@(async () => await OnSelected.InvokeAsync(Car))">
-            View
-        </button>
+        <MudIconButton Icon="@Icons.Filled.Info" aria-label="View" 
+        @onclick="@(async () => await OnSelected.InvokeAsync(Car))"></MudIconButton>
     </MudCardContent>
 </MudCard>
 <div>
