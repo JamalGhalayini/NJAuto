@@ -13,7 +13,7 @@ else
             @foreach (var car in _cars)
             {
                 <div class="col" style=" flex: 0 0 auto; width: 20rem; padding-top: 20px; ">
-                    <CarCard Car="car" OnSelected="HandleTrailSelected" />
+                    <CarCard Car="car" OnSelected="HandleCarSelected" />
                 </div>
             }
 
@@ -32,7 +32,7 @@ else
     {
         _cars = await Http.GetFromJsonAsync<IEnumerable<Car>>("/carcontroller");
     }
-    private void HandleTrailSelected(Car car)
+    private void HandleCarSelected(Car car)
     {
         _selectedCar = car;
     }
