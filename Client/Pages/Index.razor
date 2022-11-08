@@ -1,11 +1,25 @@
 ﻿@page "/"
-
+@inject NavigationManager Navigator
 <div >
     <img class="imgBack" src="/Images/backgroundImg1.jpg" />
 
 </div>
 
-<div class="box  pt-5">
+<div class="container-fluid mt-lg-5 align-content-around padding-top " data-aos="fade-up">
+   <div class="row align-items-lg-start">
+    <img class="col-8" src="/Images/history-pic.jpeg" />
+    <div class="col-4 history-text">
+        <h2 > "From nobodies To somebodies"</h2>
+        <p > JNAuto has been around for more time than you think, it has  survived through thin and thick 
+            and its still at the top of the car trading business. JNAuto's largest goal is to give an excellent expireince 
+            to it's costumers. If you want to learrn more about our history you can read more about us  
+        </p>
+        <a href="/about"> here. </a>
+    </div>
+   </div>
+</div>
+ 
+<div class="box  padding-top" data-aos="fade-left">
     <div class="box_item ">
         <Map></Map>
         <ContactForm></ContactForm>
@@ -13,4 +27,5 @@
     </div>
 
 </div>
+
 
