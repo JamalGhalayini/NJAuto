@@ -1,12 +1,10 @@
-﻿<MudCard Class="car" Style="width: 18rem; background-color:#333333; color:white;">
+﻿<MudCard @onclick="@(async () => await OnSelected.InvokeAsync(Car))" Class="car" Style="width: 18rem; background-color:#333333; color:white;" >
     <MudCardMedia Image="@Car.Image" Height="200" />
     <MudCardContent>
         <MudText Typo="Typo.h5">@Car.Brand @Car.Model</MudText> 
         <MudText Typo="Typo.body2">Year: @Car.Year</MudText>
         <MudText Typo="Typo.body2">KM: @Car.Km</MudText>
         <MudText Typo="Typo.body2">Price: @Car.Price DDk</MudText>
-          <MudIconButton Icon="@Icons.Filled.Info" aria-label="View" Style="color:white;"
-        @onclick="@(async () => await OnSelected.InvokeAsync(Car))"></MudIconButton>
     </MudCardContent>
 </MudCard>
 
