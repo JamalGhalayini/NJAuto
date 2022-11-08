@@ -4,27 +4,24 @@
         @if (_activeCar is not null)
         {
             <div class="drawer-content">
-                <img src="@_activeCar.Imag" />
+                <MudImage Src="@_activeCar.Image"/>
                 <div class="trail-details">
-                    <h3>@_activeCar.Brand</h3>
-                    <h6 class="mb-3 text-muted">
-                        <span class="oi oi-map-marker"></span>
-                    </h6>
+                    <h3>@_activeCar.Brand @_activeCar.Model</h3>
                     <div class="mt-4">
                         <span class="mr-5">
-                            <span class="oi oi-clock mr-2"></span>
-                            @_activeCar.Model
+                            <MudIcon Icon="@Icons.Filled.AttachMoney" Title="Price" />
+                            @_activeCar.Price DDK 
                         </span>
                         <span>
-                            <span class="oi oi-infinity mr-2"></span>
-                            @_activeCar.Km km
+                             <MudIcon Icon="@Icons.Filled.DirectionsCar" Title="km" />
+                            @_activeCar.Km KM
                         </span>
                     </div>
                     <p class="mt-4">@_activeCar.Description</p>
                 </div>
             </div>
             <div class="drawer-controls">
-                 <MudIconButton Icon="@Icons.Filled.Close" aria-label="Close" @onclick="Close"></MudIconButton> 
+                 <MudIconButton Icon="@Icons.Filled.Close" aria-label="Close" Style="color:white;" @onclick="Close"></MudIconButton> 
             </div>
         }
     </div>

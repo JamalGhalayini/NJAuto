@@ -27,7 +27,8 @@
     width: 35em;
     overflow-y: auto;
     overflow-x: hidden;
-    background-color: white;
+    background-color: #484848;
+    color: white; 
     border-left: 0.063em solid gray;
     z-index: 100;
     transform: translateX(110%);
@@ -50,6 +51,6 @@
 }
 
 .drawer-controls {
-    padding: 20px;
-    background-color: #ffffff;
+    padding: 30px;
+    background-color: #484848;
 }
