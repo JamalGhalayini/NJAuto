@@ -1,47 +1,42 @@
-﻿<div class="drawer-wrapper @(_isOpen ? "slide" : "")">
-    <div class="drawer-mask"></div>
-    <div class="drawer">
-        @if (_activeCar is not null)
-        {
+﻿<MudDrawer @bind-Open="@_isOpen" Width="600px" Height="100%" Anchor="@_anchor" Elevation="1" Variant="@DrawerVariant.Temporary">
+    @if (_activeCar is not null)
+    {
+        <div class="drawer">
             <div class="drawer-content">
-                <MudImage Src="@_activeCar.Image"/>
+                <MudImage Src="@_activeCar.Image" />
                 <div class="Car-details">
-                    <h3>@_activeCar.Brand @_activeCar.Model</h3>
+                    <MudText  Typo="Typo.h5">@_activeCar.Brand @_activeCar.Model</MudText>
                     <div class="mt-4">
                         <span class="mr-5">
                             <MudIcon Icon="@Icons.Filled.AttachMoney" Title="Price" />
-                            @_activeCar.Price DDK 
+                            @_activeCar.Price DDK
                         </span>
                         <span>
-                             <MudIcon Icon="@Icons.Filled.DirectionsCar" Title="km" />
+                            <MudIcon Icon="@Icons.Filled.DirectionsCar" Title="km" />
                             @_activeCar.Km KM
                         </span>
                     </div>
-                    <p class="mt-4">@_activeCar.Description</p>
+                    <MudText class="mt-4">@_activeCar.Description</MudText>
                 </div>
             </div>
-            <div class="drawer-controls">
-                 <MudIconButton Icon="@Icons.Filled.Close" aria-label="Close" Style="color:white;" @onclick="Close"></MudIconButton> 
-            </div>
-        }
-    </div>
-</div>
+        </div>
+    }
+</MudDrawer>
+
+
 @code {
     private bool _isOpen;
     private Car? _activeCar;
     [Parameter, EditorRequired]
     public Car? Car { get; set; }
+    Anchor _anchor;
     protected override void OnParametersSet()
     {
         if (Car != null)
         {
             _activeCar = Car;
             _isOpen = true;
+            _anchor = Anchor.End;
         }
-    }
-    private void Close()
-    {
-        _activeCar = null;
-        _isOpen = false;
     }
 }
