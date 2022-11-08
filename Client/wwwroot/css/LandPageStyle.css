@@ -65,6 +65,18 @@ max-width: 600px;
     border-left-width: 8px;
 }
 
+.history-text {
+    color: white;
+    font-family: 'Baskerville Old Face';
+    font-size:20px;
+    line-height:40px;
+    padding-top:30px;
+}
+.padding-top{
+    padding-top:10vh;
+}
+
+
       
 
  
