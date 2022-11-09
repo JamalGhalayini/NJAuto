@@ -5,11 +5,15 @@
 
 <MudLayout >
    
-    <MudAppBar Elevation="1" Color="Color.Dark">
+    <MudAppBar Elevation="1" Color="Color.Dark" >
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
+         <MudIconButton Href="/" Match="NavLinkMatch.All"Icon="@Icons.Material.Filled.House" ></MudIconButton>
+    <MudIconButton Href="/showcars" Match="NavLinkMatch.Prefix" Icon="@Icons.Filled.DirectionsCar">Showcars</MudIconButton>
+     <MudIconButton Href="/about"  Match="NavLinkMatch.Prefix" Icon="@Icons.Filled.HistoryEdu" ></MudIconButton>
         <MudText > </MudText>
         <MudSpacer />
        <MudImage Style="height: 60px" Src="Images/Logo.PNG" ></MudImage>
+       
     </MudAppBar>
     <MudDrawer @bind-Open="@open" Color="Color.Dark" Breakpoint="@breakpoint" Elevation="1" Variant="@DrawerVariant.Responsive" PreserveOpenState="@preserveOpenState">
         <MudDrawerHeader>
