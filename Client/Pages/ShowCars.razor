@@ -1,4 +1,5 @@
 ﻿@page "/Showcars"
+@page "/Showcars/{Brand}"
 @inherits MainLayout
 @inject HttpClient Http;
 @if (_cars is null)
@@ -7,6 +8,19 @@
 }
 else
 {
+    <div class="container-fluid p-1">
+
+    <label class="col-1 col-sm-1"for="selectedBrands">Select Brand </label>
+    <select  class="col-1 col-sm-1"id="selectedBrand" @bind="@Brand">
+        <option value="" selected> All Brands </option>
+        @foreach (var brand in brands)
+        {
+            <option value="@brand">@brand</option>
+        }
+    </select>
+    <button  class="btn btn-light  col-sm-1 offset-8 " @onclick="GetBrand"> Search</button>
+    </div>
+
     <div class="container-fluid">
         <CarDetails Car="_selectedCar" />
         <div class="row">
@@ -16,7 +30,7 @@ else
                     <CarCard Car="car" OnSelected="HandleCarSelected" />
                 </div>
             }
-            
+
         </div>
     </div>
 
@@ -28,12 +42,46 @@ else
 @code {
     private IEnumerable<Car>? _cars;
     private Car? _selectedCar;
+    private List<string>? brands = new();
+
+    [Parameter]
+    public string? Brand { get; set; } = "";
+
     protected override async Task OnInitializedAsync()
     {
-        _cars = await Http.GetFromJsonAsync<IEnumerable<Car>>("/carcontroller");
+        await GetCars();  
+        foreach (var car in _cars)
+        {
+            if (!brands.Contains(car.Brand))
+            {
+                brands.Add(car.Brand);
+            }
+        }
     }
+
+    private async Task GetCars()
+    {
+        _cars = await Http.GetFromJsonAsync<IEnumerable<Car>>("/carcontroller");
+
+    }
+
     private void HandleCarSelected(Car car)
     {
         _selectedCar = car;
     }
-}
+
+    private async Task GetBrand()
+    {
+        if (!string.IsNullOrWhiteSpace(Brand))
+        {
+            _cars = await Http.GetFromJsonAsync<IEnumerable<Car>>($"/carcontroller/{Brand}");
+            StateHasChanged();
+        }
+        else
+        {
+            await GetCars();
+        }
+            
+           
+        }
+    }
