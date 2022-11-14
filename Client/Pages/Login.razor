@@ -1,0 +1,33 @@
+﻿@page "/Login"
+<div class="image">
+    <div class="container-fluid">
+        <div class="mudPaper">
+            <MudCard Label="Login" Style="background-color:transparent; padding-top:10px;">
+                <MudTextField Class="input" T="string" Label="Email or Username" Variant="Variant.Filled" @bind-Value="_user.Username" />
+                <MudTextField Class="input" @bind-Value="_user.Password" Label="Password" Variant="Variant.Filled" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ButtonTestclick" AdornmentAriaLabel="Show Password" />
+                <MudButton Class="LoginBtn" Variant="Variant.Text">Login</MudButton>
+            </MudCard>
+        </div>
+    </div>
+</div>
+@code {
+    User _user = new User();
+    bool isShow;
+    InputType PasswordInput = InputType.Password;
+    string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+    void ButtonTestclick()
+    {
+        @if (isShow)
+        {
+            isShow = false;
+            PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+            PasswordInput = InputType.Password;
+        }
+        else
+        {
+            isShow = true;
+            PasswordInputIcon = Icons.Material.Filled.Visibility;
+            PasswordInput = InputType.Text;
+        }
+    }
+}
