@@ -90,5 +90,25 @@ namespace NJAuto.Server.Controllers
             });
             return cars; 
         }
+
+        [HttpGet("{request}")]
+        public async Task<ActionResult<IEnumerable<Car>>> GetBrand([FromRoute]string request)
+        {
+            var carList = GetCars().Result.ToList();
+            List<Car> brands = new();
+            foreach (var car in carList)
+            {
+                if (car.Brand == request)
+                {
+                    brands.Add(car);
+                }
+            }          
+            if (brands.Count >= 0)
+            {
+                Results.BadRequest("Brand not found");
+            }
+                Results.Ok() ;
+            return brands;
+        }
     }
 }
