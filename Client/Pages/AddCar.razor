@@ -1,0 +1,25 @@
+﻿
+<MudCard @onclick="@(ToggleDrawer)" Class="car"Style="width: 18rem; background-color:#333333; color:white;">
+    <MudCardMedia Image="/Images/plus.png" Height="200"></MudCardMedia>
+    <MudCardContent>
+<MudText>Add Car</MudText>
+    </MudCardContent>
+</MudCard>
+
+<MudDrawer @bind-Open="@Open" Width="600px" Height="100%" Anchor="_anchor" Elevation="1" Variant="@DrawerVariant.Temporary">
+    
+       
+           
+                
+</MudDrawer>
+@code {
+
+ bool Open = false;
+   Anchor _anchor;
+    void ToggleDrawer()
+    {
+        Open = !Open;
+         _anchor = Anchor.End;
+    }
+
+}
