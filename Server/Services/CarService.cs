@@ -1,6 +1,6 @@
 ﻿using NJAuto.Shared.Models;
 
-namespace NJAuto.Server.Controllers.Services
+namespace NJAuto.Server.Services
 {
     public class CarService : ICarServices
     {
