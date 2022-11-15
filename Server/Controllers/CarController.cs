@@ -14,7 +14,7 @@ namespace NJAuto.Server.Controllers
             cars.Add(new Car
             {
                 CarId = 1,
-                Image="Cars/golf.jpg",
+                ImageTitle="Cars/golf.jpg",
                 Brand = "VW",
                 Model = "Golf 7",
                 Year = 2016,
@@ -25,7 +25,7 @@ namespace NJAuto.Server.Controllers
             cars.Add(new Car
             {
                 CarId = 2,
-                Image = "Cars/2012-audi-a3.jpg",
+                ImageTitle = "Cars/2012-audi-a3.jpg",
                 Brand = "Audi",
                 Model = "A3",
                 Year = 2012,
@@ -36,7 +36,7 @@ namespace NJAuto.Server.Controllers
             cars.Add(new Car
             {
                 CarId = 2,
-                Image = "Cars/2012-audi-a3.jpg",
+                ImageTitle = "Cars/2012-audi-a3.jpg",
                 Brand = "Audi",
                 Model = "A3",
                 Year = 2012,
@@ -47,7 +47,7 @@ namespace NJAuto.Server.Controllers
             cars.Add(new Car
             {
                 CarId = 2,
-                Image = "Cars/2012-audi-a3.jpg",
+                ImageTitle = "Cars/2012-audi-a3.jpg",
                 Brand = "Audi",
                 Model = "A3",
                 Year = 2012,
@@ -58,7 +58,7 @@ namespace NJAuto.Server.Controllers
             cars.Add(new Car
             {
                 CarId = 2,
-                Image = "Cars/2012-audi-a3.jpg",
+                ImageTitle = "Cars/2012-audi-a3.jpg",
                 Brand = "Audi",
                 Model = "A3",
                 Year = 2012,
@@ -69,7 +69,7 @@ namespace NJAuto.Server.Controllers
             cars.Add(new Car
             {
                 CarId = 2,
-                Image = "Cars/2012-audi-a3.jpg",
+                ImageTitle = "Cars/2012-audi-a3.jpg",
                 Brand = "Audi",
                 Model = "A3",
                 Year = 2012,
@@ -80,7 +80,7 @@ namespace NJAuto.Server.Controllers
             cars.Add(new Car
             {
                 CarId = 1,
-                Image = "Cars/golf.jpg",
+                ImageTitle = "Cars/golf.jpg",
                 Brand = "VW",
                 Model = "Golf 7",
                 Year = 2016,

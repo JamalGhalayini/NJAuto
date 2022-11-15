@@ -1,5 +1,5 @@
 ﻿<MudCard @onclick="@(async () => await OnSelected.InvokeAsync(Car))" Class="car" Style="width: 18rem; background-color:#333333; color:white;" >
-    <MudCardMedia Image="@Car.Image" Height="200" />
+    <MudCardMedia Image="@Car.ImageTitle" Height="200" />
     <MudCardContent>
         <MudText Typo="Typo.h5">@Car.Brand @Car.Model</MudText> 
         <MudText Typo="Typo.body2">Year: @Car.Year</MudText>
