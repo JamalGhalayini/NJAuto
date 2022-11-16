@@ -1,21 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NJAuto.Shared.Models
+﻿namespace NJAuto.Shared.Models
 {
     public class Car
     {
-        public int CarId { get; set; }
+        public int CarId { get; set; } 
         public string Brand { get; set; }
         public string Model { get; set; }
         public string ImageTitle { get; set;  }
         public byte[] ImageData { get; set; }
         public double Km { get; set; }
-        public int Year { get; set; }
+        public int YearModel { get; set; }
         public double Price { get; set; }
-        public string Description { get; set; } 
+        public string Detail { get; set; }
+    
+    }
+    public class CarCreatModel
+    {
+        public string Brand { get; set; }
+        public string Model { get; set; }
+        public string ImageTitle { get; set; }
+        public byte[] ImageData { get; set; }
+        public double Km { get; set; }
+        public int YearModel { get; set; }
+        public double Price { get; set; }
+        public string Detail { get; set; }
     }
 }
