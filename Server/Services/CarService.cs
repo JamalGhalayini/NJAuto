@@ -10,9 +10,20 @@ namespace NJAuto.Server.Services
         {
             _db = data;
         }
-        public async Task AddCar(Car newCar)
+        public async Task AddCar(CarCreatModel newCar)
         {
-            var addNewCar = await _db.Car.AddAsync(newCar);
+            var creatNewCar = new Car()
+            {
+                Brand = newCar.Brand,
+                Model = newCar.Model,
+                ImageTitle = newCar.ImageTitle,
+                ImageData = newCar.ImageData,
+                Km = newCar.Km,
+                YearModel = newCar.YearModel,
+                Price = newCar.Price,
+                Detail = newCar.Detail,
+            };
+            await _db.Car.AddAsync(creatNewCar);
             await _db.SaveChangesAsync();
         }
 

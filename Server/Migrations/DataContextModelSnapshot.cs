@@ -34,7 +34,7 @@ namespace NJAuto.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("Detail")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -56,7 +56,7 @@ namespace NJAuto.Server.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("Year")
+                    b.Property<int>("YearModel")
                         .HasColumnType("int");
 
                     b.HasKey("CarId");

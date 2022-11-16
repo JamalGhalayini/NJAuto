@@ -11,11 +11,11 @@ namespace NJAuto.Server.Controllers
     public class ServicesController : ControllerBase, ICarServices
     {
         private readonly CarService _carService;    
+
         [HttpPost]
-        public Task AddCar(Car newCar)
+        public async Task AddCar([FromBody] CarCreatModel newCar)
         {
-            var car = _carService.AddCar(newCar);
-            return car; 
+           await _carService.AddCar(newCar);
         }
         [HttpPut("{car}")]
         public Task EditCar(Car car)
