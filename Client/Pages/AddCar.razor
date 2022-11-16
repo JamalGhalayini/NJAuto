@@ -1,25 +1,90 @@
-﻿
-<MudCard @onclick="@(ToggleDrawer)" Class="car"Style="width: 18rem; background-color:#333333; color:white;">
+﻿ @inject IDialogService DialogService
+<MudCard @onclick="@(ToggleDrawer)" Class="car" Style="width: 18rem; background-color:#333333; color:white;">
     <MudCardMedia Image="/Images/plus.png" Height="200"></MudCardMedia>
     <MudCardContent>
-<MudText>Add Car</MudText>
+        <MudText>Add Car</MudText>
     </MudCardContent>
 </MudCard>
 
-<MudDrawer @bind-Open="@Open" Width="600px" Height="100%" Anchor="_anchor" Elevation="1" Variant="@DrawerVariant.Temporary">
-    
-       
-           
-                
-</MudDrawer>
-@code {
 
- bool Open = false;
-   Anchor _anchor;
+<MudDrawer @bind-Open="@Open" Width="600px" Height="100%" Anchor="_anchor" Elevation="1" Variant="@DrawerVariant.Temporary"Style="background-color:#484848; color:white;">
+    <div class=" container-fluid" >
+        <div>
+            <EditForm Model="@_car" OnValidSubmit="@CreateCar">
+                <div class="row p-4">
+
+                    <InputFile  OnChange="OnFileChange" @bind-Value="@_car.ImageTitle" accept=".jpg, .jpeg, .png" title="Upload image"></InputFile>
+
+                    <img  class="offset-3 col-5 align-items-center"src="@imageBase64" width="200" height="200" />
+                </div>
+                <div class="align-items-center">
+
+                    <div class="row p-2">
+                        <label class=" offset-1 col-1"> Brand</label>
+                        <label class="col-1 offset-6">Model</label>
+                    </div>
+                    <div class="row ">
+
+                        <InputText @bind-Value=@_car.Brand class=" offset-1 col-3"></InputText>
+                        <InputText @bind-Value=@_car.Model class="col-3 offset-4" title="Car Model"></InputText>
+                    </div>
+                    <div class="row p-2 pt-3">
+                        <label class=" offset-1 col-1"> YearModel</label>
+                        <label class="col-1 offset-3 "> Kilometers</label>
+                        <label class="offset-3 col-1"> Price </label>
+                    </div>
+                    <div class="row ">
+
+                        <InputNumber @bind-Value=@_car.Year class=" offset-1 col-3"></InputNumber>
+                        <InputNumber @bind-Value=@_car.Km class="col-3 offset-1" ></InputNumber>
+                        <InputNumber @bind-Value=@_car.Price class="col-3 offset-1" ></InputNumber>
+                    </div>
+                      <div class="row p-2 pt-3">
+                        <label class=" offset-1 col-1"> Details</label>    
+                    </div>
+                    <div class="row ">
+                        <InputTextArea @bind-Value=@_car.Description class="offset-1 col-9" style="height:200px;resize:none;" ></InputTextArea>                        
+                    </div>
+                </div>
+                <div class="row pt-4">
+                <button  type="submit" class="btn btn-success offset-8 col-2"> Add car</button>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</MudDrawer>
+
+@code {
+    private Car _car { get; set; } = new();
+    bool Open = false;
+    Anchor _anchor;
     void ToggleDrawer()
     {
         Open = !Open;
-         _anchor = Anchor.End;
+        _anchor = Anchor.End;
     }
+    private async Task CreateCar()
+    {
+        if (_car != null)
+        {
+            //call add car 
+
+            var options = new DialogOptions { CloseOnEscapeKey = true };
+       DialogService.Show<DialogSucces>("Car Added", options);
+        }
+       
+    }
+
+        private string? imageBase64;
+    async Task OnFileChange(InputFileChangeEventArgs e) 
+    {
+        const string format = "image/png";
+        var resizedImage = await e.File.RequestImageFileAsync(format, 512, 512);
+        var buffer = new byte[resizedImage.Size];
+        await resizedImage.OpenReadStream().ReadAsync(buffer);
+        imageBase64 = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
+        
+
+      }
 
 }
