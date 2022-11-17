@@ -9,35 +9,28 @@
 else
 {
     <div class="container-fluid p-1">
-
-    <label class="col-1 col-sm-1"for="selectedBrands">Select Brand </label>
-    <select  class="col-1 col-sm-1"id="selectedBrand" @bind="@Brand">
-        <option value="" selected> All Brands </option>
-        @foreach (var brand in brands)
-        {
-            <option value="@brand">@brand</option>
-        }
-    </select>
-    <button  class="btn btn-light  col-sm-1 offset-8 " @onclick="GetBrand"> Search</button>
+        <label class="col-1 col-sm-1" for="selectedBrands">Select Brand </label>
+        <select class="col-1 col-sm-1" id="selectedBrand" @bind="@Brand">
+            <option value="" selected> All Brands </option>
+            @foreach (var brand in brands)
+            {
+                <option value="@brand">@brand</option>
+            }
+        </select>
+        <button class="btn btn-light  col-sm-1 offset-8 " @onclick="GetBrand"> Search</button>
     </div>
 
     <div class="container-fluid">
-        <CarDetails Car="_selectedCar" />
+        <CarDetails Car="_selectedCar"/>
         <div class="row">
             @foreach (var car in _cars)
             {
                 <div class="col" style=" flex: 0 0 auto; width: 19rem; padding-top: 20px; ">
-                    <CarCard Car="car" OnSelected="HandleCarSelected" />
+                    <CarCard Car="car" OnSelected="HandleCarSelected"  />
                 </div>
             }
-
-
         </div>
     </div>
-
-  
-
-
 }
 
 @code {
@@ -47,10 +40,9 @@ else
 
     [Parameter]
     public string? Brand { get; set; } = "";
-
     protected override async Task OnInitializedAsync()
     {
-        await GetCars();  
+        await GetCars();
         foreach (var car in _cars)
         {
             if (!brands.Contains(car.Brand))
@@ -63,7 +55,6 @@ else
     private async Task GetCars()
     {
         _cars = await Http.GetFromJsonAsync<IEnumerable<Car>>("/carcontroller");
-
     }
 
     private void HandleCarSelected(Car car)
@@ -82,7 +73,9 @@ else
         {
             await GetCars();
         }
-            
-           
-        }
+
+
     }
+
+
+}

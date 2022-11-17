@@ -1,20 +1,27 @@
-﻿<MudDrawer @bind-Open="@_isOpen" Width="600px" Height="100%" Anchor="@_anchor" Elevation="1" Variant="@DrawerVariant.Temporary">
+﻿@inject HttpClient Http; 
+
+
+<MudDrawer @bind-Open="@_isOpen" Width="600px" Height="100%" Anchor="@_anchor" Elevation="1" Variant="@DrawerVariant.Temporary">
     @if (_activeCar is not null)
     {
         <div class="drawer">
             <div class="drawer-content">
                 <MudImage Src="@_activeCar.ImageTitle" />
                 <div class="Car-details">
-                    <MudText  Typo="Typo.h5">@_activeCar.Brand @_activeCar.Model</MudText>
+                    <MudText Typo="Typo.h5">@_activeCar.Brand @_activeCar.Model</MudText>
                     <div class="mt-4">
                         <span class="mr-5">
                             <MudIcon Icon="@Icons.Filled.AttachMoney" Title="Price" />
                             @_activeCar.Price DDK
+
                         </span>
                         <span>
                             <MudIcon Icon="@Icons.Filled.DirectionsCar" Title="km" />
                             @_activeCar.Km KM
                         </span>
+
+                        <MudIconButton Icon="@Icons.Filled.ChangeCircle" Title="Update" Style="margin-left:190px; color:white;" />
+                        <MudIconButton Icon="@Icons.Filled.DeleteOutline" Title="Delete" Style="margin-left:5px; color:white;" @onclick="DeleteCar"/>
                     </div>
                     <MudText class="mt-4">@_activeCar.Detail</MudText>
                 </div>
@@ -39,4 +46,10 @@
             _anchor = Anchor.End;
         }
     }
+    private async Task DeleteCar()
+    {
+        await Http.DeleteAsync($"api/CarService/{_activeCar}"); 
+    }
+
+
 }
