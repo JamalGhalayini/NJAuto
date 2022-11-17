@@ -8,9 +8,13 @@ namespace NJAuto.Server.Controllers
 
     [Route("api/CarService")]
     [ApiController]
-    public class ServicesController : ControllerBase, ICarServices
+    public class ServicesController : ControllerBase
     {
-        private readonly CarService _carService;    
+        private readonly ICarService _carService;
+        public ServicesController(ICarService carService)
+        {
+            _carService = carService;   
+        }
 
         [HttpPost]
         public async Task AddCar([FromBody] CarCreatModel newCar)

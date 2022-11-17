@@ -2,7 +2,7 @@
 
 namespace NJAuto.Server.Services
 {
-    public interface ICarServices
+    public interface ICarService
     {
         public Task AddCar(CarCreatModel newCar);
         public Task RemoveCar(Car car);  
