@@ -3,7 +3,7 @@ using NJAuto.Shared.Models;
 
 namespace NJAuto.Server.Services
 {
-    public class CarService : ICarServices
+    public class CarService : ICarService
     {
         private readonly DataContext _db;
         public CarService(DataContext data)
