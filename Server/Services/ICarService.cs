@@ -8,5 +8,6 @@ namespace NJAuto.Server.Services
         public Task RemoveCar(Car car);  
         public Task EditCar(Car car);
         public Task<List<Car>> GetCar();
+        public Task<Car> FindCar(int carId);
     }
 }

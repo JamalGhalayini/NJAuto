@@ -51,14 +51,10 @@ namespace NJAuto.Server.Services
         {
             if (carId!=null)
             {
-            var result = await  _db.FindAsync<Car>(carId);
+            var result = await _db.FindAsync<Car>(carId);
             return result;
             }
             return null;
-         
-           
         }
-
-
     }
 }
