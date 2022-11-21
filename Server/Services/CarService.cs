@@ -46,5 +46,19 @@ namespace NJAuto.Server.Services
             _db.Remove(car);
             await _db.SaveChangesAsync();
         }
+
+        public async Task<Car> FindCar( int carId)
+        {
+            if (carId!=null)
+            {
+            var result = await  _db.FindAsync<Car>(carId);
+            return result;
+            }
+            return null;
+         
+           
+        }
+
+
     }
 }
