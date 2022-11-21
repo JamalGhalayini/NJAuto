@@ -27,7 +27,7 @@ namespace NJAuto.Server.Controllers
           
             cars.Add(new Car
             {
-                CarId = 1,
+                CarId = 4,
                 ImageTitle = "Cars/golf.jpg",
                 Brand = "VW",
                 Model = "Golf 7",
@@ -38,7 +38,7 @@ namespace NJAuto.Server.Controllers
             });
             cars.Add(new Car
             {
-                CarId = 1,
+                CarId = 2,
                 ImageTitle = "Cars/golf.jpg",
                 Brand = "VW",
                 Model = "Golf 7",
@@ -49,7 +49,7 @@ namespace NJAuto.Server.Controllers
             });
             cars.Add(new Car
             {
-                CarId = 1,
+                CarId = 3,
                 ImageTitle = "Cars/golf.jpg",
                 Brand = "VW",
                 Model = "Golf 7",
@@ -61,12 +61,17 @@ namespace NJAuto.Server.Controllers
             return cars;
         }
 
-        [HttpDelete("{car}")]
-        public void RemoveCar(Car car)
+        [HttpPost]
+        public void RemoveCar( [FromBody] int carId)
         {
-            if (car != null)
+            foreach (var item in cars)
             {
-                cars.Remove(car);
+                if (carId==item.CarId)
+                {
+                    cars.Remove(item);
+
+                }
+
             }
         }
     }

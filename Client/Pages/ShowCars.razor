@@ -40,6 +40,7 @@ else
 
     [Parameter]
     public string? Brand { get; set; } = "";
+
     protected override async Task OnInitializedAsync()
     {
         await GetCars();
@@ -63,9 +64,10 @@ else
         _selectedCar = car;
     }
 
-    private async Task RemoveCar(Car car)
+    private async Task RemoveCar(int carId)
     {
-        await Http.DeleteAsync($"api/carcontroller/{car}");
+        await Http.PostAsJsonAsync<int>("api/carcontroller",carId);
+        StateHasChanged();
     }
 
     private async Task GetBrand()
