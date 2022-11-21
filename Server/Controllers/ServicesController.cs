@@ -20,22 +20,16 @@ namespace NJAuto.Server.Controllers
         }
 
        [HttpPost]
-        public async Task<IResult> AddCar([FromBody] CarCreateModel newCar)
+        public async Task<ActionResult> AddCar([FromBody] CarCreateModel newCar)
         {
-            //if (ModelState.IsValid)
-            //{
-                //string stringCar = "";
-                //newCar = JsonConvert.DeserializeObject<CarCreateModel>(stringCar);
-                //if (_file.Length > 0)
-                //    using (var ms = new MemoryStream())
-                //    {
-                //        _file.CopyTo(ms);
-                //        newCar.ImageData = ms.ToArray();
+            if (ModelState.IsValid)
+            {
+
                         await _carService.AddCar(newCar);
-                        return Results.Ok();
-                    //}
-            //}
-                //return Results.BadRequest();
+                        return  Ok();
+            }
+                 
+                return BadRequest();
           
         }
 
