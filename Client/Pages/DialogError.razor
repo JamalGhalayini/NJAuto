@@ -1,6 +1,6 @@
 ﻿<MudDialog>
     <DialogContent>
-       Succes !
+     Error !
     </DialogContent>
     <DialogActions>
         <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
@@ -8,9 +8,9 @@
 </MudDialog>
 
 
-
 @code {
     [CascadingParameter]
     MudDialogInstance MudDialog { get; set; }
     void Submit() => MudDialog.Close(DialogResult.Ok(true));
 }
+

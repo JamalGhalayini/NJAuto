@@ -1,12 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace NJAuto.Shared.Models
 {
-    public class Car
+    public class CarCreateModel
     {
-
-        //[Required]
-        public int CarId { get; set; }
 
         //[Required]
         //[MaxLength(30, ErrorMessage = "BrandName is too long")]
@@ -16,8 +17,8 @@ namespace NJAuto.Shared.Models
         //[MaxLength(30, ErrorMessage = "ModelName is too long")]
         public string Model { get; set; }
 
-     
-        public string ImageTitle { get; set;  }
+
+        public string ImageTitle { get; set; }
 
         //[Required]
         public byte[] ImageData { get; set; }
@@ -31,15 +32,11 @@ namespace NJAuto.Shared.Models
         public int YearModel { get; set; }
 
         //[Required]
-      // [Max(10, ErrorMessage = "Price is way too much")]
+        //[MaxLength(10, ErrorMessage = "Price is way too much")]
         public double Price { get; set; }
 
         //[Required]
         //[MaxLength(200, ErrorMessage = "You wrote too much")]
         public string Detail { get; set; }
-    
     }
-   
-       
-    
 }

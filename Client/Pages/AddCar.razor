@@ -1,4 +1,9 @@
-﻿@inject IDialogService DialogService
+﻿@using System.Text.Json
+@using System.Text
+@using System.Net.Mime
+@inject IDialogService DialogService
+@inject HttpClient HttpClient
+
 <MudCard @onclick="@(ToggleDrawer)" Class="car" Style="width: 18rem; background-color:#333333; color:white;">
     <MudCardMedia Image="/Images/plus.png" Height="200"></MudCardMedia>
     <MudCardContent>
@@ -10,10 +15,13 @@
 <MudDrawer @bind-Open="@Open" Width="600px" Height="100%" Anchor="_anchor" Elevation="1" Variant="@DrawerVariant.Temporary" Style="background-color:#484848; color:white;">
     <div class=" container-fluid">
         <div>
-            <EditForm Model="@_car" OnValidSubmit="@CreateCar">
+          <EditForm Model="@_car">
+                  @*  <DataAnnotationsValidator/>
+                 <ValidationSummary/>*@
+
                 <div class="row p-4">
 
-                    <InputFile OnChange="OnFileChange" @bind-Value="@_car.ImageTitle" accept=".jpg, .jpeg, .png" title="Upload image"></InputFile>
+                    <InputFile OnChange="OnFileChange"  accept=".jpg, .jpeg, .png" title="Upload image"></InputFile>
 
                     <img class="offset-3 col-5 align-items-center" src="@imageBase64" width="200" height="200" />
                 </div>
@@ -47,15 +55,17 @@
                     </div>
                 </div>
                 <div class="row pt-4">
-                    <button type="submit" class="btn btn-success offset-8 col-2"> Add car</button>
+                    <button @onclick="CreateCar" class="btn btn-success offset-8 col-2"> Add car</button>
                 </div>
-            </EditForm>
+          </EditForm>
+            
+
         </div>
     </div>
 </MudDrawer>
 
 @code {
-    private Car _car { get; set; } = new();
+    private CarCreateModel _car { get; set; } = new();
     bool Open = false;
     Anchor _anchor;
     private string? imageBase64;
@@ -64,21 +74,31 @@
         Open = !Open;
         _anchor = Anchor.End;
     }
-    private async Task CreateCar()
+    async Task CreateCar()
     {
         if (_car != null)
         {
-            //call add car
+
+            var result = await  HttpClient.PostAsJsonAsync<CarCreateModel>("/carservice",_car);
 
             var options = new DialogOptions { CloseOnEscapeKey = true };
-            DialogService.Show<DialogSucces>("Car Added", options);
+            if (result.IsSuccessStatusCode)
+            {
+
+                DialogService.Show<DialogSucces>("Car Added", options);
+
+
+            }
+
+            DialogService.Show<DialogError>("Failed to add car ", options);
         }
 
     }
 
 
     async Task OnFileChange(InputFileChangeEventArgs e)
-    {   
+    {
+        _car.ImageTitle=e.File.Name;
         const string format = "image/png";
         var resizedImage = await e.File.RequestImageFileAsync(format, 600, 600);
         var buffer = new byte[resizedImage.Size];

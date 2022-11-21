@@ -1,46 +1,64 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using NJAuto.Server.Services;
 using NJAuto.Shared.Models;
 
 namespace NJAuto.Server.Controllers
 {
 
-    [Route("api/CarService")]
+    [Route("/carservice")]
     [ApiController]
-    public class ServicesController : ControllerBase
+    public class ServicesController : Controller
     {
         private readonly ICarService _carService;
-        public ServicesController(ICarService carService)
+        //private readonly IFormFile _file;
+        public ServicesController(ICarService carService /*IFormFile file*/)
         {
-            _carService = carService;   
+            _carService = carService;
+            //_file = file;
         }
 
-        [HttpPost]
-        public async Task AddCar([FromBody] CarCreatModel newCar)
+       [HttpPost]
+        public async Task<IResult> AddCar([FromBody] CarCreateModel newCar)
         {
-           await _carService.AddCar(newCar);
+            //if (ModelState.IsValid)
+            //{
+                //string stringCar = "";
+                //newCar = JsonConvert.DeserializeObject<CarCreateModel>(stringCar);
+                //if (_file.Length > 0)
+                //    using (var ms = new MemoryStream())
+                //    {
+                //        _file.CopyTo(ms);
+                //        newCar.ImageData = ms.ToArray();
+                        await _carService.AddCar(newCar);
+                        return Results.Ok();
+                    //}
+            //}
+                //return Results.BadRequest();
+          
         }
+
         [HttpPut("{car}")]
-        public Task EditCar(Car car)
+        public async Task EditCar(Car car)
         {
-            var data = _carService.EditCar(car);
-            return data;   
+             await _carService.EditCar(car);
+            
         }
 
         [HttpGet]
-        public Task<List<Car>> GetCar()
+        public async Task<List<Car>> GetCar()
         {
-            var get = _carService.GetCar();
+            var get = await  _carService.GetCar();
             return get;
         }
 
 
         [HttpDelete("{car}")]
-        public Task RemoveCar(Car car)
+        public async Task RemoveCar([FromRoute] Car car)
         {
-            var result =_carService.RemoveCar(car);  
-            return result;
+            await _carService.RemoveCar(car);
+            
         }
     }
 }
