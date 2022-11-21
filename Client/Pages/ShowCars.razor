@@ -21,12 +21,12 @@ else
     </div>
 
     <div class="container-fluid">
-        <CarDetails Car="_selectedCar"/>
+        <CarDetails Car="_selectedCar" />
         <div class="row">
             @foreach (var car in _cars)
             {
                 <div class="col" style=" flex: 0 0 auto; width: 19rem; padding-top: 20px; ">
-                    <CarCard Car="car" OnSelected="HandleCarSelected"  />
+                    <CarCard Car="car" OnSelected="HandleCarSelected" DeleteCar="RemoveCar" />
                 </div>
             }
         </div>
@@ -50,16 +50,22 @@ else
                 brands.Add(car.Brand);
             }
         }
+        StateHasChanged();
     }
 
     private async Task GetCars()
     {
-        _cars = await Http.GetFromJsonAsync<IEnumerable<Car>>("/carcontroller");
+        _cars = await Http.GetFromJsonAsync<IEnumerable<Car>>("api/carcontroller");
     }
 
     private void HandleCarSelected(Car car)
     {
         _selectedCar = car;
+    }
+
+    private async Task RemoveCar(Car car)
+    {
+        await Http.DeleteAsync($"api/carcontroller/{car}");
     }
 
     private async Task GetBrand()
