@@ -8,7 +8,7 @@
             <div class="drawer-content">
                 <MudImage Src="@_activeCar.ImageTitle" />
                 <div class="Car-details">
-                    <MudText Typo="Typo.h5">@_activeCar.Brand @_activeCar.Model</MudText>
+                    <MudText Typo="Typo.h5">"@_activeCar.Brand @_activeCar.Model"</MudText>
                     <div class="mt-4">
                         <span class="mr-5">
                             <MudIcon Icon="@Icons.Filled.AttachMoney" Title="Price" />
@@ -21,7 +21,6 @@
                         </span>
 
                         <MudIconButton Icon="@Icons.Filled.ChangeCircle" Title="Update" Style="margin-left:190px; color:white;" />
-                        <MudIconButton Icon="@Icons.Filled.DeleteOutline" Title="Delete" Style="margin-left:5px; color:white;" @onclick="DeleteCar"/>
                     </div>
                     <MudText class="mt-4">@_activeCar.Detail</MudText>
                 </div>
@@ -46,10 +45,7 @@
             _anchor = Anchor.End;
         }
     }
-    private async Task DeleteCar()
-    {
-        await Http.DeleteAsync($"api/CarService/{_activeCar}"); 
-    }
+   
 
 
 }
