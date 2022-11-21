@@ -15,13 +15,13 @@
 <MudDrawer @bind-Open="@Open" Width="600px" Height="100%" Anchor="_anchor" Elevation="1" Variant="@DrawerVariant.Temporary" Style="background-color:#484848; color:white;">
     <div class=" container-fluid">
         <div>
-          <EditForm Model="@_car">
-                  @*  <DataAnnotationsValidator/>
-                 <ValidationSummary/>*@
+            <EditForm Model="@_car" OnValidSubmit="@CreateCar">
+                 <DataAnnotationsValidator/>
+                <ValidationSummary/>
 
                 <div class="row p-4">
 
-                    <InputFile OnChange="OnFileChange"  accept=".jpg, .jpeg, .png" title="Upload image"></InputFile>
+                    <InputFile OnChange="OnFileChange" accept=".jpg, .jpeg, .png" title="Upload image"></InputFile>
 
                     <img class="offset-3 col-5 align-items-center" src="@imageBase64" width="200" height="200" />
                 </div>
@@ -55,10 +55,10 @@
                     </div>
                 </div>
                 <div class="row pt-4">
-                    <button @onclick="CreateCar" class="btn btn-success offset-8 col-2"> Add car</button>
+                    <button type="submit" class="btn btn-success offset-8 col-2"> Add car</button>
                 </div>
-          </EditForm>
-            
+            </EditForm>
+
 
         </div>
     </div>
@@ -76,21 +76,19 @@
     }
     async Task CreateCar()
     {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
         if (_car != null)
         {
+            var result = await HttpClient.PostAsJsonAsync<CarCreateModel>("/carservice", _car);
 
-            var result = await  HttpClient.PostAsJsonAsync<CarCreateModel>("/carservice",_car);
-
-            var options = new DialogOptions { CloseOnEscapeKey = true };
             if (result.IsSuccessStatusCode)
             {
-
                 DialogService.Show<DialogSucces>("Car Added", options);
-
-
             }
-
-            DialogService.Show<DialogError>("Failed to add car ", options);
+            if (!result.IsSuccessStatusCode)
+            {
+                DialogService.Show<DialogError>("Failed to add car ", options);
+            }
         }
 
     }
@@ -98,7 +96,7 @@
 
     async Task OnFileChange(InputFileChangeEventArgs e)
     {
-        _car.ImageTitle=e.File.Name;
+        _car.ImageTitle = e.File.Name;
         const string format = "image/png";
         var resizedImage = await e.File.RequestImageFileAsync(format, 600, 600);
         var buffer = new byte[resizedImage.Size];
