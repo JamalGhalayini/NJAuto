@@ -6,24 +6,27 @@ namespace NJAuto.Server.Services
     public class CarService : ICarService
     {
         private readonly DataContext _db;
+       
         public CarService(DataContext data)
         {
             _db = data;
         }
-        public async Task AddCar(CarCreatModel newCar)
+        public async Task AddCar(CarCreateModel car)
         {
-            var creatNewCar = new Car()
+    
+          Car  newCar = new ()
             {
-                Brand = newCar.Brand,
-                Model = newCar.Model,
-                ImageTitle = newCar.ImageTitle,
-                ImageData = newCar.ImageData,
-                Km = newCar.Km,
-                YearModel = newCar.YearModel,
-                Price = newCar.Price,
-                Detail = newCar.Detail,
+                Brand = car.Brand,
+                Model = car.Model,
+                ImageTitle = car.ImageTitle,
+                ImageData = car.ImageData,
+                Km = car.Km,
+                YearModel = car.YearModel,
+                Price = car.Price,
+                Detail = car.Detail,
             };
-            await _db.Car.AddAsync(creatNewCar);
+          
+            await _db.Car.AddAsync(newCar);
             await _db.SaveChangesAsync();
         }
 
