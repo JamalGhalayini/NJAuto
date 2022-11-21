@@ -37,7 +37,7 @@ else
     private IEnumerable<Car>? _cars;
     private Car? _selectedCar;
     private List<string>? brands = new();
-
+    private string? imageBase64;
     [Parameter]
     public string? Brand { get; set; } = "";
 
@@ -56,7 +56,14 @@ else
 
     private async Task GetCars()
     {
-        _cars = await Http.GetFromJsonAsync<IEnumerable<Car>>("api/carcontroller");
+        _cars = await Http.GetFromJsonAsync<IEnumerable<Car>>("/carservice");
+        foreach(var car in _cars)
+        {
+            const string format = "image/png";
+
+            imageBase64 = $"data:{format};base64,{Convert.ToBase64String(car.ImageData)}";
+            car.ImageTitle = imageBase64;
+        }
     }
 
     private void HandleCarSelected(Car car)
@@ -66,7 +73,7 @@ else
 
     private async Task RemoveCar(int carId)
     {
-        await Http.PostAsJsonAsync<int>("api/carcontroller",carId);
+        await Http.DeleteAsync($"/carservice{carId}");
         StateHasChanged();
     }
 

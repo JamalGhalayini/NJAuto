@@ -19,39 +19,40 @@ namespace NJAuto.Server.Controllers
             //_file = file;
         }
 
-       [HttpPost]
+        [HttpPost]
         public async Task<ActionResult> AddCar([FromBody] CarCreateModel newCar)
         {
             if (ModelState.IsValid)
             {
 
-                        await _carService.AddCar(newCar);
-                        return  Ok();
+                await _carService.AddCar(newCar);
+                return Ok();
             }
-                 
-                return BadRequest();
-          
+
+            return BadRequest();
+
         }
 
         [HttpPut("{car}")]
         public async Task EditCar(Car car)
         {
-             await _carService.EditCar(car);
-            
+            await _carService.EditCar(car);
+
         }
 
         [HttpGet]
         public async Task<List<Car>> GetCar()
         {
-            var get = await  _carService.GetCar();
+            var get = await _carService.GetCar();
             return get;
         }
 
 
-        [HttpDelete("{car}")]
-        public async Task RemoveCar([FromRoute] Car car)
+        [HttpDelete("{carId}")]
+        public async Task RemoveCar([FromRoute] int carId)
         {
-            await _carService.RemoveCar(car);
+            var result = await _carService.FindCar(carId);
+            await _carService.RemoveCar(result);
             
         }
     }
