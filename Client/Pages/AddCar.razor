@@ -69,23 +69,13 @@
     bool _open = false;
     Anchor _anchor;
     private string? imageBase64;
-    private Car? _activeCar;
-    [Parameter, EditorRequired]
-    public Car Car { get; set; }
+ 
     void ToggleDrawer()
     {
         _open = !_open;
         _anchor = Anchor.End;
     }
-    protected override void OnParametersSet()
-    {
-        if (Car != null)
-        {
-            _activeCar = Car;
-            _open = true;
-            _anchor = Anchor.End;
-        }
-    }
+ 
 
     async Task CreateCar()
     {

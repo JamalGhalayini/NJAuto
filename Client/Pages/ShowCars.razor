@@ -27,12 +27,12 @@ else
             @foreach (var car in _cars)
             {
                 <div class="col" style=" flex: 0 0 auto; width: 19rem; padding-top: 20px; ">
-                    <CarCard Car="car" OnSelected="HandleCarSelected" DeleteCar="RemoveCar" />
-                    <button onclick="@HandleCarSelected">edit</button>
+                    <CarCard Car="car" OnSelected="HandleCarSelected" DeleteCar="RemoveCar"  />
+                   @* <button onclick="@HandleCarSelected">edit</button>*@
                 </div>
             }
              <div class="col" style=" flex: 0 0 auto; width: 19rem; padding-top: 20px; ">
-            <AddCar  Car="_selectedCar"></AddCar>
+            <AddCar></AddCar>
             </div>
         </div>
     </div>
@@ -41,7 +41,7 @@ else
 @code {
     private IEnumerable<Car>? _cars;
     private Car? _selectedCar;
-    
+
     private List<string>? brands = new();
     private string? imageBase64;
     [Parameter]
@@ -68,8 +68,8 @@ else
             const string format = "image/png";
             imageBase64 = $"data:{format};base64,{Convert.ToBase64String(car.ImageData)}";
             car.ImageTitle = imageBase64;
-            
-            
+
+
         }
     }
 
@@ -78,11 +78,6 @@ else
         _selectedCar = car;
     }
 
-    private async Task RemoveCar(int carId)
-    {
-        await Http.DeleteAsync($"/carservice{carId}");
-        StateHasChanged();
-    }
 
     private async Task GetBrand()
     {
@@ -97,5 +92,13 @@ else
         }
     }
 
+    private async Task RemoveCar(Car car)
+    {
+        await Http.DeleteAsync($"/carservice/{car.CarId}");
+        await GetBrand();
+        await GetCars();
+        StateHasChanged();
+        
+    }
 
 }

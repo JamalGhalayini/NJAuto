@@ -49,10 +49,16 @@ namespace NJAuto.Server.Controllers
 
 
         [HttpDelete("{carId}")]
-        public async Task RemoveCar([FromRoute] int carId)
+        public async Task<ActionResult> RemoveCar( int carId)
         {
+            
             var result = await _carService.FindCar(carId);
-            await _carService.RemoveCar(result);
+            if(result != null)
+            {
+                await _carService.RemoveCar(result);
+                return Ok();
+            }
+           return NotFound();
             
         }
 
