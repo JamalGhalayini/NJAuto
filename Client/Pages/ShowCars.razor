@@ -5,7 +5,7 @@
 @inject HttpClient Http;
 @if (_cars is null)
 {
-    <p>Loading cars</p>
+    <Spinner></Spinner>
 }
 else
 {
@@ -28,9 +28,12 @@ else
             {
                 <div class="col" style=" flex: 0 0 auto; width: 19rem; padding-top: 20px; ">
                     <CarCard Car="car" OnSelected="HandleCarSelected" DeleteCar="RemoveCar" />
+                    <button onclick="@HandleCarSelected">edit</button>
                 </div>
             }
-            <AddCar></AddCar>
+             <div class="col" style=" flex: 0 0 auto; width: 19rem; padding-top: 20px; ">
+            <AddCar  Car="_selectedCar"></AddCar>
+            </div>
         </div>
     </div>
 }
@@ -38,6 +41,7 @@ else
 @code {
     private IEnumerable<Car>? _cars;
     private Car? _selectedCar;
+    
     private List<string>? brands = new();
     private string? imageBase64;
     [Parameter]
@@ -91,8 +95,6 @@ else
         {
             await GetCars();
         }
-
-
     }
 
 

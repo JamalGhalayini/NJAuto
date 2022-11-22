@@ -55,6 +55,7 @@ namespace NJAuto.Server.Controllers
             await _carService.RemoveCar(result);
             
         }
+
         [HttpGet("{request}")]
         public async Task<ActionResult<IEnumerable<Car>>> GetBrand([FromRoute] string request)
         {
@@ -67,7 +68,7 @@ namespace NJAuto.Server.Controllers
                     brands.Add(car);
                 }
             }
-            if (brands.Count >= 0)
+            if (brands.Count <= 0)
             {
                 return BadRequest("Brand not found");
             }

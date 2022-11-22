@@ -4,7 +4,7 @@
 @inject IDialogService DialogService
 @inject HttpClient HttpClient
 
-<MudCard @onclick="@(ToggleDrawer)" Class="car" Style="width: 18rem; background-color:#333333; color:white;">
+<MudCard @onclick="@(ToggleDrawer)" Class="car" Style="width: 18rem; height:23rem; background-color:#333333; color:white;">
     <MudCardMedia Image="/Images/plus.png" Height="200"></MudCardMedia>
     <MudCardContent>
         <MudText>Add Car</MudText>
@@ -12,7 +12,7 @@
 </MudCard>
 
 
-<MudDrawer @bind-Open="@Open" Width="600px" Height="100%" Anchor="_anchor" Elevation="1" Variant="@DrawerVariant.Temporary" Style="background-color:#484848; color:white;">
+<MudDrawer @bind-Open="@_open" Width="600px" Height="100%" Anchor="_anchor" Elevation="1" Variant="@DrawerVariant.Temporary" Style="background-color:#484848; color:white;">
     <div class=" container-fluid">
         <div>
             <EditForm Model="@_car" OnValidSubmit="@CreateCar">
@@ -66,14 +66,27 @@
 
 @code {
     private CarCreateModel _car { get; set; } = new();
-    bool Open = false;
+    bool _open = false;
     Anchor _anchor;
     private string? imageBase64;
+    private Car? _activeCar;
+    [Parameter, EditorRequired]
+    public Car Car { get; set; }
     void ToggleDrawer()
     {
-        Open = !Open;
+        _open = !_open;
         _anchor = Anchor.End;
     }
+    protected override void OnParametersSet()
+    {
+        if (Car != null)
+        {
+            _activeCar = Car;
+            _open = true;
+            _anchor = Anchor.End;
+        }
+    }
+
     async Task CreateCar()
     {
         var options = new DialogOptions { CloseOnEscapeKey = true };
@@ -88,6 +101,7 @@
             if (!result.IsSuccessStatusCode)
             {
                 DialogService.Show<DialogError>("Failed to add car ", options);
+                StateHasChanged();
             }
         }
 
