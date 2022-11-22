@@ -1,11 +1,13 @@
-﻿<MudCard @onclick="@(async () => await OnSelected.InvokeAsync(Car))" Class="car" Style="width: 18rem; background-color:#333333; color:white;" >
+﻿@inject HttpClient Http;
+
+<MudCard @onclick="@(async () => await OnSelected.InvokeAsync(Car))" Class="car" Style="width: 18rem; background-color:#333333; color:white;" >
     <MudCardMedia Image="@Car.ImageTitle" Height="200" />
     <MudCardContent>
         <MudText Typo="Typo.h5">@Car.Brand @Car.Model</MudText> 
         <MudText Typo="Typo.body2">Year: @Car.YearModel</MudText>
         <MudText Typo="Typo.body2">Km: @Car.Km</MudText>
         <MudText Typo="Typo.body2">Price: @Car.Price DDk</MudText>
-         <MudIconButton Icon="@Icons.Filled.DeleteOutline" Title="Delete" Style="margin-left:5px; color:white;" @onclick="@(async () => await DeleteCar.InvokeAsync(Car.CarId))" />
+         <MudIconButton Icon="@Icons.Filled.DeleteOutline" Title="Delete" Style="margin-left:5px; color:white;" @onclick="@(async () => await DeleteCar.InvokeAsync(Car))" />
     </MudCardContent>
 </MudCard>
 
@@ -18,5 +20,7 @@
     public EventCallback<Car> OnSelected { get; set; }
 
     [Parameter]
-    public EventCallback<int> DeleteCar { get; set; }
+    public EventCallback<Car> DeleteCar { get; set; }
+
+     
 }
