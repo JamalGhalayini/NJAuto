@@ -11,11 +11,11 @@ namespace NJAuto.Shared.Models
     {
 
         [Required]
-        [MaxLength(30, ErrorMessage = "BrandName is too long")]
+        [MaxLength(20, ErrorMessage = "BrandName is too long")]
         public string Brand { get; set; }
 
         [Required]
-        [MaxLength(30, ErrorMessage = "ModelName is too long")]
+        [MaxLength(20, ErrorMessage = "ModelName is too long")]
         public string Model { get; set; }
 
 

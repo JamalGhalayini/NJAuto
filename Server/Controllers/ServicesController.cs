@@ -12,11 +12,11 @@ namespace NJAuto.Server.Controllers
     public class ServicesController : Controller
     {
         private readonly ICarService _carService;
-        //private readonly IFormFile _file;
-        public ServicesController(ICarService carService /*IFormFile file*/)
+      
+        public ServicesController(ICarService carService )
         {
             _carService = carService;
-            //_file = file;
+           
         }
 
         [HttpPost]
@@ -55,5 +55,26 @@ namespace NJAuto.Server.Controllers
             await _carService.RemoveCar(result);
             
         }
+        [HttpGet("{request}")]
+        public async Task<ActionResult<IEnumerable<Car>>> GetBrand([FromRoute] string request)
+        {
+            var carList = await _carService.GetCar();
+            List<Car> brands = new();
+            foreach (var car in carList)
+            {
+                if (car.Brand == request)
+                {
+                    brands.Add(car);
+                }
+            }
+            if (brands.Count >= 0)
+            {
+                return BadRequest("Brand not found");
+            }
+           
+            return Ok(brands);
+        }
+
+
     }
 }
