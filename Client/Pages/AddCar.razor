@@ -4,6 +4,7 @@
 @inject IDialogService DialogService
 @inject HttpClient HttpClient
 
+
 <MudCard @onclick="@(ToggleDrawer)" Class="car" Style="width: 18rem; height:23rem; background-color:#333333; color:white;">
     <MudCardMedia Image="/Images/plus.png" Height="200"></MudCardMedia>
     <MudCardContent>
@@ -69,13 +70,13 @@
     bool _open = false;
     Anchor _anchor;
     private string? imageBase64;
- 
+
     void ToggleDrawer()
     {
         _open = !_open;
         _anchor = Anchor.End;
     }
- 
+
 
     async Task CreateCar()
     {
@@ -91,7 +92,7 @@
             if (!result.IsSuccessStatusCode)
             {
                 DialogService.Show<DialogError>("Failed to add car ", options);
-                StateHasChanged();
+               
             }
         }
 
@@ -100,6 +101,7 @@
 
     async Task OnFileChange(InputFileChangeEventArgs e)
     {
+      
         _car.ImageTitle = e.File.Name;
         const string format = "image/png";
         var resizedImage = await e.File.RequestImageFileAsync(format, 600, 600);

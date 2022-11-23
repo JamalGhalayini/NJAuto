@@ -23,6 +23,7 @@ else
 
     <div class="container-fluid">
         <CarDetails Car="_selectedCar" />
+        <UpdateCar Car="_selectedCar"/>
         <div class="row">
             @foreach (var car in _cars)
             {
@@ -98,7 +99,7 @@ else
         await GetBrand();
         await GetCars();
         StateHasChanged();
-        
     }
+
 
 }

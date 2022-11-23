@@ -6,15 +6,15 @@ namespace NJAuto.Server.Services
     public class CarService : ICarService
     {
         private readonly DataContext _db;
-       
+
         public CarService(DataContext data)
         {
             _db = data;
         }
         public async Task AddCar(CarCreateModel car)
         {
-    
-          Car  newCar = new ()
+
+            Car newCar = new()
             {
                 Brand = car.Brand,
                 Model = car.Model,
@@ -25,20 +25,33 @@ namespace NJAuto.Server.Services
                 Price = car.Price,
                 Detail = car.Detail,
             };
-          
+
             await _db.Car.AddAsync(newCar);
             await _db.SaveChangesAsync();
         }
 
-        public async Task EditCar(Car car)
+        public async Task<Car> EditCar(Car car, int id)
         {
-            _db.Car.Update(car);
-            await _db.SaveChangesAsync();  
+            var result = await FindCar(id);
+            if (result != null)
+            {
+                result.Brand = car.Brand;
+                result.Model = car.Model;
+                result.ImageTitle = car.ImageTitle;
+                result.ImageData = car.ImageData;
+                result.Km = car.Km;
+                result.YearModel = car.YearModel;
+                result.Price = car.Price;
+                result.Detail = car.Detail;
+
+                await _db.SaveChangesAsync();
+            }
+            return car;
         }
 
         public async Task<List<Car>> GetCar()
         {
-           return await _db.Car.ToListAsync();
+            return await _db.Car.ToListAsync();
         }
 
         public async Task RemoveCar(Car car)
@@ -47,12 +60,12 @@ namespace NJAuto.Server.Services
             await _db.SaveChangesAsync();
         }
 
-        public async Task<Car> FindCar( int carId)
+        public async Task<Car> FindCar(int carId)
         {
-            if (carId!=null)
+            if (carId != null)
             {
-            var result = await _db.FindAsync<Car>(carId);
-            return result;
+                var result = await _db.FindAsync<Car>(carId);
+                return result;
             }
             return null;
         }
