@@ -33,11 +33,16 @@ namespace NJAuto.Server.Controllers
 
         }
 
-        [HttpPut("{car}")]
-        public async Task EditCar(Car car)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> EditCar( [FromBody]Car car, [FromRoute] int id)
         {
-            await _carService.EditCar(car);
+            if (ModelState.IsValid)
+            {
+              var result =  await _carService.EditCar(car, id);
+                return Ok(result);
+            }
 
+            return BadRequest();
         }
 
         [HttpGet]
