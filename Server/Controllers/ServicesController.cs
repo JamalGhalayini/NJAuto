@@ -39,7 +39,7 @@ namespace NJAuto.Server.Controllers
             if (ModelState.IsValid)
             {
               var result =  await _carService.EditCar(car, id);
-                return Ok(result);
+               return Ok(result);
             }
 
             return BadRequest();

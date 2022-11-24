@@ -23,26 +23,28 @@ else
 
     <div class="container-fluid">
         <CarDetails Car="_selectedCar" />
-        <UpdateCar Car="_selectedCar"/>
+        <UpdateCar Car="_update" />
+
         <div class="row">
             @foreach (var car in _cars)
             {
                 <div class="col" style=" flex: 0 0 auto; width: 19rem; padding-top: 20px; ">
-                    <CarCard Car="car" OnSelected="HandleCarSelected" DeleteCar="RemoveCar"  />
-                   @* <button onclick="@HandleCarSelected">edit</button>*@
+                    <CarCard Car="car" OnSelected="HandleCarSelected" DeleteCar="RemoveCar" EditCar="EditCarSelected" />
                 </div>
             }
-             <div class="col" style=" flex: 0 0 auto; width: 19rem; padding-top: 20px; ">
-            <AddCar></AddCar>
+            <div class="col" style=" flex: 0 0 auto; width: 19rem; padding-top: 20px; ">
+                <AddCar ></AddCar>
+
             </div>
         </div>
     </div>
+
 }
 
 @code {
     private IEnumerable<Car>? _cars;
     private Car? _selectedCar;
-
+    private Car? _update;
     private List<string>? brands = new();
     private string? imageBase64;
     [Parameter]
@@ -51,6 +53,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         await GetCars();
+        
         foreach (var car in _cars)
         {
             if (!brands.Contains(car.Brand))
@@ -64,24 +67,34 @@ else
     private async Task GetCars()
     {
         _cars = await Http.GetFromJsonAsync<IEnumerable<Car>>("/carservice");
-        foreach(var car in _cars)
+        foreach (var car in _cars)
         {
             const string format = "image/png";
             imageBase64 = $"data:{format};base64,{Convert.ToBase64String(car.ImageData)}";
             car.ImageTitle = imageBase64;
-
-
         }
     }
 
     private void HandleCarSelected(Car car)
     {
         _selectedCar = car;
+        if (_selectedCar != null)
+        {
+            _update = null;
+        }
     }
 
-
+    private void EditCarSelected(Car car)
+    {
+        _update = car;
+        if (_update != null)
+        {
+            _selectedCar = null;
+        }
+    }
     private async Task GetBrand()
     {
+
         if (!string.IsNullOrWhiteSpace(Brand))
         {
             _cars = await Http.GetFromJsonAsync<IEnumerable<Car>>($"/carservice/{Brand}");
@@ -100,6 +113,4 @@ else
         await GetCars();
         StateHasChanged();
     }
-
-
 }

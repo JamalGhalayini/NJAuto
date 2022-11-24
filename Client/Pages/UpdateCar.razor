@@ -44,13 +44,12 @@
                     <button type="submit" class="btn btn-success offset-8 col-2"> Update </button>
                 </div>
             </EditForm>
-
-
         </div>
     </div>
 </MudDrawer>
 
 @code {
+
     private bool _isOpen;
     private Car _updateCar { get; set; } = new();
     [Parameter, EditorRequired]
@@ -62,8 +61,7 @@
         if (Car != null)
         {
             _updateCar = Car;
-
-            _isOpen = true;
+             _isOpen = true;
             _anchor = Anchor.Start;
         }
     }
@@ -96,8 +94,12 @@
                 StateHasChanged();
             }
         }
+        _updateCar = null;
 
     }
 
-    }
+
+
+
+}
 
