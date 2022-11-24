@@ -43,7 +43,6 @@ namespace NJAuto.Server.Services
                 result.YearModel = car.YearModel;
                 result.Price = car.Price;
                 result.Detail = car.Detail;
-
                 await _db.SaveChangesAsync();
             }
             return car;

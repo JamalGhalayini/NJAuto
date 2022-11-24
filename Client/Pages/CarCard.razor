@@ -8,6 +8,7 @@
         <MudText Typo="Typo.body2">Km: @Car.Km</MudText>
         <MudText Typo="Typo.body2">Price: @Car.Price DDk</MudText>
         <MudIconButton Icon="@Icons.Filled.DeleteOutline" Title="Delete" Style="margin-left:5px; color:white;" @onclick="@(async () => await DeleteCar.InvokeAsync(Car))" />
+       <MudIconButton Icon="@Icons.Filled.Update" Title="update" Style="margin-left:5px; color:white;" @onclick="@(async () => await EditCar.InvokeAsync(Car))" />
     </MudCardContent>
 </MudCard>
 
@@ -17,10 +18,13 @@
     public Car Car { get; set; } = default!;
     
     [Parameter]
-    public EventCallback<Car> OnSelected { get; set; }
+    public EventCallback<Car> OnSelected { get; set; } 
 
     [Parameter]
     public EventCallback<Car> DeleteCar { get; set; }
+
+    [Parameter]
+    public EventCallback<Car> EditCar { get; set; }
 
      
 }

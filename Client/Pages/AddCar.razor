@@ -78,7 +78,7 @@
     }
 
 
-    async Task CreateCar()
+     async Task CreateCar()
     {
         var options = new DialogOptions { CloseOnEscapeKey = true };
         if (_car != null)
@@ -92,9 +92,10 @@
             if (!result.IsSuccessStatusCode)
             {
                 DialogService.Show<DialogError>("Failed to add car ", options);
-               
+
             }
         }
+        StateHasChanged(); 
 
     }
 
