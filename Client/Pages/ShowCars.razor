@@ -3,6 +3,7 @@
 @using static System.Net.Mime.MediaTypeNames
 @inherits MainLayout
 @inject HttpClient Http;
+@inject IDialogService DialogService
 @if (_cars is null)
 {
     <Spinner></Spinner>
@@ -33,7 +34,7 @@ else
                 </div>
             }
             <div class="col" style=" flex: 0 0 auto; width: 19rem; padding-top: 20px; ">
-                <AddCar ></AddCar>
+                <AddCar></AddCar>
 
             </div>
         </div>
@@ -53,12 +54,12 @@ else
     protected override async Task OnInitializedAsync()
     {
         await GetCars();
-        
         foreach (var car in _cars)
         {
             if (!brands.Contains(car.Brand))
             {
                 brands.Add(car.Brand);
+
             }
         }
         StateHasChanged();
@@ -94,7 +95,6 @@ else
     }
     private async Task GetBrand()
     {
-
         if (!string.IsNullOrWhiteSpace(Brand))
         {
             _cars = await Http.GetFromJsonAsync<IEnumerable<Car>>($"/carservice/{Brand}");
@@ -108,7 +108,22 @@ else
 
     private async Task RemoveCar(Car car)
     {
-        await Http.DeleteAsync($"/carservice/{car.CarId}");
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        if (car != null)
+        {
+            _update = null;
+            _selectedCar = null;
+            var result = await Http.DeleteAsync($"/carservice/{car.CarId}");
+            if (result.IsSuccessStatusCode)
+            {
+                DialogService.Show<DialogSucces>("Car is delete it", options);
+            }
+            if (!result.IsSuccessStatusCode)
+            {
+                DialogService.Show<DialogError>("Failed to delete car ", options);
+                StateHasChanged();
+            }
+        }
         await GetBrand();
         await GetCars();
         StateHasChanged();
