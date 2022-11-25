@@ -14,7 +14,7 @@ else
 {
     <div class="container-fluid p-1" >
         <label class="col-1 col-sm-1" for="selectedBrands">Select Brand </label>
-        <select class="col-1 col-sm-1" id="selectedBrand" @bind="@Brand" @onclick="args => _selectedCar=null">
+        <select class="col-1 col-sm-1" id="selectedBrand" @bind="@Brand" @onclick="Clear">
             <option value="" selected> All Brands </option>
             @foreach (var brand in brands)
             {
@@ -95,14 +95,14 @@ else
     {
         if (!string.IsNullOrWhiteSpace(Brand))
         {
-            _selectedCar = null;
+            Clear();
             _cars = await Http.GetFromJsonAsync<IEnumerable<Car>>($"/carservice/{Brand}");
             StateHasChanged();
-              LoadImages();
+            LoadImages();
         }
         else
         {
-            _selectedCar = null;
+            Clear();
             await GetCars();
         }
     }
@@ -132,11 +132,22 @@ else
 
     private void LoadImages()
     {
-          foreach (var car in _cars)
+        foreach (var car in _cars)
         {
             const string format = "image/png";
             imageBase64 = $"data:{format};base64,{Convert.ToBase64String(car.ImageData)}";
             car.ImageTitle = imageBase64;
+        }
+    }
+    void Clear()
+    {
+        if (_selectedCar!=null)
+        {
+            _selectedCar=null;
+        }
+        if (_update != null)
+        {
+            _update = null;
         }
     }
 }
