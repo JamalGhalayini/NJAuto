@@ -1,7 +1,7 @@
 ﻿@inject HttpClient Http; 
 
 
-<MudDrawer @bind-Open="@_isOpen" Width="600px" Height="100%" Anchor="@_anchor" Elevation="1" Variant="@DrawerVariant.Temporary">
+<MudDrawer @bind-Open="@_isOpen" Width="600px" Height="100%" Anchor="@_anchor" Elevation="1" Variant="@DrawerVariant.Temporary" >
     @if (_activeCar is not null)
     {
         <div class="drawer">
