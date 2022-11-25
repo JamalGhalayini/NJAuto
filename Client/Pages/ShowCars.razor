@@ -6,13 +6,15 @@
 @inject IDialogService DialogService
 @if (_cars is null)
 {
+    <div style="height:400px;">
     <Spinner></Spinner>
+    </div>
 }
 else
 {
-    <div class="container-fluid p-1">
+    <div class="container-fluid p-1" >
         <label class="col-1 col-sm-1" for="selectedBrands">Select Brand </label>
-        <select class="col-1 col-sm-1" id="selectedBrand" @bind="@Brand">
+        <select class="col-1 col-sm-1" id="selectedBrand" @bind="@Brand" @onclick="args => _selectedCar=null">
             <option value="" selected> All Brands </option>
             @foreach (var brand in brands)
             {
@@ -68,12 +70,8 @@ else
     private async Task GetCars()
     {
         _cars = await Http.GetFromJsonAsync<IEnumerable<Car>>("/carservice");
-        foreach (var car in _cars)
-        {
-            const string format = "image/png";
-            imageBase64 = $"data:{format};base64,{Convert.ToBase64String(car.ImageData)}";
-            car.ImageTitle = imageBase64;
-        }
+        LoadImages();
+
     }
 
     private void HandleCarSelected(Car car)
@@ -97,11 +95,14 @@ else
     {
         if (!string.IsNullOrWhiteSpace(Brand))
         {
+            _selectedCar = null;
             _cars = await Http.GetFromJsonAsync<IEnumerable<Car>>($"/carservice/{Brand}");
             StateHasChanged();
+              LoadImages();
         }
         else
         {
+            _selectedCar = null;
             await GetCars();
         }
     }
@@ -127,5 +128,15 @@ else
         await GetBrand();
         await GetCars();
         StateHasChanged();
+    }
+
+    private void LoadImages()
+    {
+          foreach (var car in _cars)
+        {
+            const string format = "image/png";
+            imageBase64 = $"data:{format};base64,{Convert.ToBase64String(car.ImageData)}";
+            car.ImageTitle = imageBase64;
+        }
     }
 }
