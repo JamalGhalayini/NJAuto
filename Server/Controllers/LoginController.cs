@@ -10,14 +10,14 @@ using System.Text;
 
 namespace NJAuto.Server.Controllers
 {
-    [Route("/loningController")]
+    [Route("/loginController")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class LoginController : Controller
     {
         private readonly IConfiguration _configuration;
         private readonly UserManager<UserEntity> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        public AuthController(IConfiguration configuration, UserManager<UserEntity> userManager,
+        public LoginController(IConfiguration configuration, UserManager<UserEntity> userManager,
           RoleManager<IdentityRole> roleManager)
         {
             _configuration = configuration;
@@ -27,9 +27,10 @@ namespace NJAuto.Server.Controllers
 
 
 
-        [HttpPost("Login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequest request)
+        [HttpPost]
+        public async Task<IActionResult> Login([FromBody] LoginUser request)
         {
+            
             var user = await _userManager.FindByNameAsync(request.Username);
             if (user is null || !await _userManager.CheckPasswordAsync(user, request.Password))
             {
@@ -67,6 +68,39 @@ namespace NJAuto.Server.Controllers
         }
 
 
+        //[HttpPost("/register")]
+        //public async Task<IActionResult> Register([FromBody] RegisterUser request)
+        //{
+        //    var existingUser = await _userManager.FindByNameAsync(request.Username);
+        //    if (existingUser is not null)
+        //    {
+        //        return BadRequest("Username is already taken");
+        //    }
 
+        //    if (await _roleManager.FindByNameAsync("Admin") is null)
+        //    {
+        //        await _roleManager.CreateAsync(new()
+        //        {
+        //            Name = "Admin"
+
+        //        });
+        //    }
+
+        //    var user = new UserEntity()
+        //    {
+        //        UserName = request.Username,
+        //    };
+
+        //    var result = await _userManager.CreateAsync(user, request.Password);
+
+        //    await _userManager.AddToRoleAsync(user, "Admin");
+
+        //    if (!result.Succeeded)
+        //    {
+        //        return BadRequest(result.Errors);
+        //    }
+
+        //    return Ok("User created");
+        //}
     }
 }

@@ -5,9 +5,9 @@ namespace NJAuto.Server.Services
 {
     public class CarService : ICarService
     {
-        private readonly DataContext _db;
+        private readonly AppDbContext _db;
 
-        public CarService(DataContext data)
+        public CarService(AppDbContext data)
         {
             _db = data;
         }

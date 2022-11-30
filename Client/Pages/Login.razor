@@ -2,19 +2,26 @@
 @inject HttpClient Http;
 @inject AuthenticationStateProvider AuthStateProvider;
 @inject ILocalStorageService LocalStorage; 
+@inject NavigationManager NavigationManager;
+
 <div class="image">
     <div class="container-fluid">
         <div class="mudPaper">
             <MudCard Label="Login" Style="background-color:transparent; padding-top:10px;">
-                <MudTextField Class="input" T="string" Label="Email or Username" Variant="Variant.Filled" @bind-Value="_user.Username" />
-                <MudTextField Class="input" @bind-Value="_user.Password" Label="Password" Variant="Variant.Filled" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ButtonTestclick" AdornmentAriaLabel="Show Password" />
-                <MudButton Class="LoginBtn" Variant="Variant.Text">Login</MudButton>
+               <EditForm Model="_user" OnValidSubmit="LoginSubmit">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+
+                    <MudTextField Class="input" T="string" Label="Username" Variant="Variant.Filled" @bind-Value="_user.Username" />
+                    <MudTextField Class="input" @bind-Value="_user.Password" Label="Password" Variant="Variant.Filled" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ButtonTestclick" AdornmentAriaLabel="Show Password" />
+                    <button type="submit" class="btn btn-light">Login</button>
+                </EditForm>
             </MudCard>
         </div>
     </div>
 </div>
 @code {
-    private readonly User _user = new();
+    private readonly LoginUser _user = new();
     bool isShow;
     InputType PasswordInput = InputType.Password;
     string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
@@ -41,7 +48,7 @@
     {
         _errorMessage = null;
 
-        var response = await Http.PostAsJsonAsync("/loningController", _user);
+        var response = await Http.PostAsJsonAsync<LoginUser>("/loginController", _user);
 
         if (!response.IsSuccessStatusCode)
         {
