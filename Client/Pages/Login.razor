@@ -1,4 +1,7 @@
 ﻿@page "/Login"
+@inject HttpClient Http;
+@inject AuthenticationStateProvider AuthStateProvider;
+@inject ILocalStorageService LocalStorage; 
 <div class="image">
     <div class="container-fluid">
         <div class="mudPaper">
@@ -11,7 +14,7 @@
     </div>
 </div>
 @code {
-    User _user = new User();
+    private readonly User _user = new();
     bool isShow;
     InputType PasswordInput = InputType.Password;
     string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
@@ -30,4 +33,33 @@
             PasswordInput = InputType.Text;
         }
     }
+    private string? _errorMessage = null;
+
+    // TODO: Tilføj validation summary på form
+
+    private async Task LoginSubmit()
+    {
+        _errorMessage = null;
+
+        var response = await Http.PostAsJsonAsync("/loningController", _user);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            _errorMessage = await response.Content.ReadAsStringAsync();
+        }
+        else
+        {
+            var token = await response.Content.ReadAsStringAsync();
+            await LocalStorage.SetItemAsStringAsync("token", token);
+            await AuthStateProvider.GetAuthenticationStateAsync();
+            NavigationManager.NavigateTo("/");
+        }
+    }
+
+
+
+
+
+
+
 }
