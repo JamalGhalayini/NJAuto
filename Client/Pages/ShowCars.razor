@@ -26,10 +26,8 @@ else
 
     <div class="container-fluid">
         <CarDetails Car="_selectedCar" />
-
-        <AuthorizeView Roles="Admin"> 
         <UpdateCar Car="_update" />
-        </AuthorizeView>
+    
         <div class="row">
             @foreach (var car in _cars)
             {

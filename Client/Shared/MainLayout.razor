@@ -3,20 +3,26 @@
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-<MudLayout >
-   
-    <MudAppBar Elevation="1" Color="Color.Dark" >
+<MudLayout>
+
+    <MudAppBar Elevation="1" Color="Color.Dark">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
-         <MudIconButton Href="/" Match="NavLinkMatch.All"Icon="@Icons.Material.Filled.House" ></MudIconButton>
-    <MudIconButton Href="/showcars" Match="NavLinkMatch.Prefix" Icon="@Icons.Filled.DirectionsCar">Showcars</MudIconButton>
-   
-     <MudIconButton Href="/Login" Match="NavLinkMatch.Prefix" Icon="@Icons.Filled.Login"></MudIconButton>
-     <MudIconButton Href="/about"  Match="NavLinkMatch.Prefix" Icon="@Icons.Filled.HistoryEdu" ></MudIconButton>
-    
-        <MudText > </MudText>
+        <MudIconButton Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.House"></MudIconButton>
+        <MudIconButton Href="/showcars" Match="NavLinkMatch.Prefix" Icon="@Icons.Filled.DirectionsCar">Showcars</MudIconButton>
+        <AuthorizeView>
+            <Authorized>
+                <NJAuto.Client.Pages.Logout></NJAuto.Client.Pages.Logout>
+            </Authorized>
+            <NotAuthorized>
+                <MudIconButton Href="/Login" Match="NavLinkMatch.Prefix" Icon="@Icons.Filled.Login"></MudIconButton>
+            </NotAuthorized>
+        </AuthorizeView>
+        <MudIconButton Href="/about" Match="NavLinkMatch.Prefix" Icon="@Icons.Filled.HistoryEdu"></MudIconButton>
+
+        <MudText> </MudText>
         <MudSpacer />
-       <MudImage Style="height: 60px" Src="Images/Logo.PNG" ></MudImage>
-       
+        <MudImage Style="height: 60px" Src="Images/Logo.PNG"></MudImage>
+
     </MudAppBar>
     <MudDrawer @bind-Open="@open" Color="Color.Dark" Breakpoint="@breakpoint" Elevation="1" Variant="@DrawerVariant.Responsive" PreserveOpenState="@preserveOpenState">
         <MudDrawerHeader>
@@ -27,11 +33,11 @@
         </MudNavMenu>
     </MudDrawer>
     <MudMainContent>
-      
-<div class="main black-background">
+
+        <div class="main black-background">
             @Body
-        </div>   
-       
+        </div>
+
         <footer class="footer">
             <NJAuto.Client.Pages.FooterDetails></NJAuto.Client.Pages.FooterDetails>
         </footer>
