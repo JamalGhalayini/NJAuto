@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NJAuto.Shared.Models
 {
-    public class User
+    public class LoginUser
     {
         [Required]
         public string Username { get; set; } = string.Empty;

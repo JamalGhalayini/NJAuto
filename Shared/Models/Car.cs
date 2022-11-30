@@ -10,14 +10,14 @@ namespace NJAuto.Shared.Models
 
         [Required]
         [MaxLength(20, ErrorMessage = "BrandName is too long")]
-        public string Brand { get; set; }
+        public string Brand { get; set; } = string.Empty;
 
         [Required]
         [MaxLength(20, ErrorMessage = "ModelName is too long")]
-        public string Model { get; set; }
+        public string Model { get; set; } = string.Empty;
 
 
-        public string ImageTitle { get; set; }
+        public string ImageTitle { get; set; } = string.Empty;
 
         [Required]
         public byte[] ImageData { get; set; }
@@ -35,7 +35,7 @@ namespace NJAuto.Shared.Models
 
         [Required]
         [MaxLength(200, ErrorMessage = "You wrote too much")]
-        public string Detail { get; set; }
+        public string Detail { get; set; } = string.Empty;
     }
 }
 

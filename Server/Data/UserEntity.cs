@@ -4,9 +4,7 @@ namespace NJAuto.Server.Data
 {
     public class UserEntity : IdentityUser
     {
-
-
-
+      
 
     }
 }
