@@ -1,0 +1,18 @@
+﻿
+@attribute [Authorize]
+@using Blazored.LocalStorage
+@using Microsoft.AspNetCore.Authorization
+@inject ILocalStorageService LocalStorageService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
+
+ <MudIconButton OnClick="LogoutSubmit" Icon="@Icons.Filled.Logout"></MudIconButton>
+
+@code {
+     private async Task LogoutSubmit()
+  {
+    await LocalStorageService.SetItemAsStringAsync("token", "");
+    await AuthenticationStateProvider.GetAuthenticationStateAsync();
+    NavigationManager.NavigateTo("/");
+  }
+}

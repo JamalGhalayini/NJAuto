@@ -1,0 +1,25 @@
+﻿
+
+
+#vintage {
+    border: 10px solid green;
+    padding: 15px;
+}
+
+#business {
+    border: 10px solid blue;
+    padding: 15px;
+  
+}
+
+#auto {
+    border: 10px solid red;
+    padding: 15px;
+ 
+}
+
+#wrap {
+    flex-wrap: wrap;
+    display: inline-flex;
+   
+}
