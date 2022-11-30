@@ -7,7 +7,7 @@
 
         }
 
-        public DbSet<Shared.Models.Car> Car { get; set; }
+        //public DbSet<Shared.Models.Car> Car { get; set; }
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
