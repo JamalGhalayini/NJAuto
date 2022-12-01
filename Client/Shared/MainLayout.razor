@@ -6,18 +6,18 @@
 <MudLayout>
 
     <MudAppBar Elevation="1" Color="Color.Dark">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
-        <MudIconButton Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.House"></MudIconButton>
-        <MudIconButton Href="/showcars" Match="NavLinkMatch.Prefix" Icon="@Icons.Filled.DirectionsCar">Showcars</MudIconButton>
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Title="Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
+        <MudIconButton Href="/" Match="NavLinkMatch.All" Title="Home" Icon="@Icons.Material.Filled.House"></MudIconButton>
+        <MudIconButton Href="/showcars" Match="NavLinkMatch.Prefix" Title="Show cars" Icon="@Icons.Filled.DirectionsCar">Showcars</MudIconButton>
         <AuthorizeView>
             <Authorized>
                 <NJAuto.Client.Pages.Logout></NJAuto.Client.Pages.Logout>
             </Authorized>
             <NotAuthorized>
-                <MudIconButton Href="/Login" Match="NavLinkMatch.Prefix" Icon="@Icons.Filled.Login"></MudIconButton>
+                <MudIconButton Href="/Login" Match="NavLinkMatch.Prefix" Title="Login" Icon="@Icons.Filled.Login"></MudIconButton>
             </NotAuthorized>
         </AuthorizeView>
-        <MudIconButton Href="/about" Match="NavLinkMatch.Prefix" Icon="@Icons.Filled.HistoryEdu"></MudIconButton>
+        <MudIconButton Href="/about" Title="About os" Match="NavLinkMatch.Prefix" Icon="@Icons.Filled.HistoryEdu"></MudIconButton>
 
         <MudText> </MudText>
         <MudSpacer />

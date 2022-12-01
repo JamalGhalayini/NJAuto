@@ -3,7 +3,7 @@
 @inject AuthenticationStateProvider AuthStateProvider;
 @inject ILocalStorageService LocalStorage; 
 @inject NavigationManager NavigationManager;
-  @inject IDialogService DialogService;
+@inject IDialogService DialogService;
                 
 
 <div class="image">
@@ -16,7 +16,7 @@
 
                     <MudTextField Class="input" T="string" Label="Username" Variant="Variant.Filled" @bind-Value="_user.Username" />
                     <MudTextField Class="input" @bind-Value="_user.Password" Label="Password" Variant="Variant.Filled" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ButtonTestclick" AdornmentAriaLabel="Show Password" />
-                    <button type="submit" class="btn btn-light">Login</button>
+                    <button Style="margin-left:400px; margin-top:20px;" type="submit" class="btn btn-light">Login</button>
                 </EditForm>
             </MudCard>
         </div>
