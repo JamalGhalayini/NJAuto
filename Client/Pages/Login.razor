@@ -3,6 +3,8 @@
 @inject AuthenticationStateProvider AuthStateProvider;
 @inject ILocalStorageService LocalStorage; 
 @inject NavigationManager NavigationManager;
+  @inject IDialogService DialogService;
+                
 
 <div class="image">
     <div class="container-fluid">
@@ -51,10 +53,11 @@
         _errorMessage = null;
 
         var response = await Http.PostAsJsonAsync<LoginUser>("/loginController", _user);
-
+        var options = new DialogOptions { CloseOnEscapeKey = true };
         if (!response.IsSuccessStatusCode)
         {
             _errorMessage = await response.Content.ReadAsStringAsync();
+            DialogService.Show<DialogError>("User not found ", options);
         }
         else
         {

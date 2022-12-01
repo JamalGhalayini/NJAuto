@@ -61,7 +61,7 @@
         if (Car != null)
         {
             _updateCar = Car;
-             _isOpen = true;
+            _isOpen = true;
             _anchor = Anchor.Start;
         }
     }
@@ -75,6 +75,7 @@
         await resizedImage.OpenReadStream().ReadAsync(buffer);
         imageBase64 = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
         _updateCar.ImageData = buffer;
+     
     }
 
     async Task EditCar()
