@@ -66,41 +66,5 @@ namespace NJAuto.Server.Controllers
                 expiration = token.ValidTo
             });
         }
-
-
-        //[HttpPost("/register")]
-        //public async Task<IActionResult> Register([FromBody] RegisterUser request)
-        //{
-        //    var existingUser = await _userManager.FindByNameAsync(request.Username);
-        //    if (existingUser is not null)
-        //    {
-        //        return BadRequest("Username is already taken");
-        //    }
-
-        //    if (await _roleManager.FindByNameAsync("Admin") is null)
-        //    {
-        //        await _roleManager.CreateAsync(new()
-        //        {
-        //            Name = "Admin"
-
-        //        });
-        //    }
-
-        //    var user = new UserEntity()
-        //    {
-        //        UserName = request.Username,
-        //    };
-
-        //    var result = await _userManager.CreateAsync(user, request.Password);
-
-        //    await _userManager.AddToRoleAsync(user, "Admin");
-
-        //    if (!result.Succeeded)
-        //    {
-        //        return BadRequest(result.Errors);
-        //    }
-
-        //    return Ok("User created");
-        //}
     }
 }

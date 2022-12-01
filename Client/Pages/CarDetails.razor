@@ -6,18 +6,20 @@
     {
         <div class="drawer">
             <div class="drawer-content">
-                <MudImage Src="@_activeCar.ImageTitle" Width="600" Height="550"/>
+                <MudImage Src="@_activeCar.ImageTitle" Width="600" Height="500"/>
                 <div class="Car-details">
-                    <MudText Typo="Typo.h5">"@_activeCar.Brand @_activeCar.Model"</MudText>
+                    <MudText Typo="Typo.h5">Brand :  @_activeCar.Brand</MudText>
+                    <div style="margin-top: 10px ;"></div>
+                    <MudText Typo="Typo.h5">Model : @_activeCar.Model</MudText>
                     <div class="mt-4">
                         <span class="mr-5">
                             <MudIcon Icon="@Icons.Filled.AttachMoney" Title="Price" />
-                            @_activeCar.Price DDK
+                            Price : @_activeCar.Price
 
                         </span>
                         <span>
                             <MudIcon Icon="@Icons.Filled.DirectionsCar" Title="km" />
-                            @_activeCar.Km KM
+                           KM : @_activeCar.Km 
                         </span>
                     </div>
                     <MudText class="mt-4">@_activeCar.Detail</MudText>
@@ -42,10 +44,6 @@
             _isOpen = true;
             _anchor = Anchor.End;
         }
-
-        
-        
-        
     }
    
 
