@@ -8,5 +8,6 @@ namespace NJAuto.Server.Data
 
         }
         public DbSet<Shared.Models.Car>? Car { get; set; }
+        public DbSet<Shared.Models.Employee>? employees { get; set; }      
     }
 }
