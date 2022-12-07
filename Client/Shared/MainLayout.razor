@@ -18,7 +18,9 @@
             </NotAuthorized>
         </AuthorizeView>
         <MudIconButton Href="/about" Title="About os" Match="NavLinkMatch.Prefix" Icon="@Icons.Filled.HistoryEdu"></MudIconButton>
-
+         <AuthorizeView Roles="Admin">  
+        <MudIconButton Href="/Workers" Match="NavLinkMatch.Prefix" Title="Employees" Icon="@Icons.Filled.SupervisedUserCircle">Employees</MudIconButton>
+         </AuthorizeView>
         <MudText> </MudText>
         <MudSpacer />
         <MudImage Style="height: 60px" Src="Images/Logo.PNG"></MudImage>

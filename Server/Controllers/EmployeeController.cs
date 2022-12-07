@@ -56,7 +56,7 @@ namespace NJAuto.Server.Controllers
                 await _employeesService.AddEmployee(request);
                 return Ok("User created");
             }
-            
+
         }
 
         [HttpPut("{id}")]
@@ -88,12 +88,25 @@ namespace NJAuto.Server.Controllers
                 var existingUser = await _userManager.FindByNameAsync(result.Username);
                 if (existingUser is not null)
                 {
-                    await _userManager.RemovePasswordAsync(existingUser);
+                    await _userManager.DeleteAsync(existingUser);
+
                 }
                 await _employeesService.RemoveEmployee(result);
                 return Ok();
             }
             return NotFound();
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Employee>> GetEmployee([FromRoute] int id )
+        {
+            var result = await _employeesService.FindEmployee(id);
+            if(result != null)
+            {
+                return Ok(result);
+            }
+            return BadRequest();
+        }
+
     }
 }
