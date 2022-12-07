@@ -1,46 +1,53 @@
 ﻿@page "/Workers"
+@attribute [Authorize(Roles = "Admin")]
 @inject HttpClient Http;
+@inject IDialogService DialogService;
+
+@if (_employee is null)
+{
+    <h2>No employees</h2>
+}
+
+<div Class="container-fluid align-citems-center pt-5 mb-5 ">
+
+    <MudTable Items="@_employee" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
+        <ToolBarContent>
+            <MudText Typo="Typo.h6">Employees</MudText>
+            <div style="margin-left:100px; ">
+                <MudButton Variant="Variant.Filled" @onclick="@(ToggleDrawer)">Add new employee</MudButton>
+            </div>
+        </ToolBarContent>
 
 
-        
-<MudTable Items="@_employee" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
-    <ToolBarContent>
-        <MudText Typo="Typo.h6">Employees</MudText>
-        <div style="margin-left:100px; ">
-        <MudButton Variant="Variant.Filled" @onclick="@(ToggleDrawer)"  >Add new employee</MudButton>
-        </div>
-    </ToolBarContent>
-    <HeaderContent>
-        <MudTh>Name</MudTh>
-        <MudTh>LastName</MudTh>
-        <MudTh>Username</MudTh>
-    
-    </HeaderContent>
-    <RowTemplate>
-        @foreach (var empo in _employee)
-        {
-            <MudTd DataLabel="Name">@empo.Name</MudTd>
-            <MudTd DataLabel="LastName">@empo.LastName</MudTd>
-            <MudTd DataLabel="Username">@empo.Username</MudTd>
-        }
+        <HeaderContent>
+            <MudTh Class="col-3">Name</MudTh>
+            <MudTh Class="col-3">LastName</MudTh>
+            <MudTh Class="col-3">Username</MudTh>
+        </HeaderContent>
 
-    </RowTemplate>
-</MudTable>
+        <RowTemplate>
+            <MudTd Class="col-3" DataLabel="Name">@context.Name</MudTd>
+            <MudTd Class="col-3" DataLabel="LastName">@context.LastName</MudTd>
+            <MudTd Class="col-3" DataLabel="Username">@context.Username</MudTd>
+            <MudIconButton Icon="@Icons.Filled.DeleteOutline" Title="Delete" @onclick="@(async () => await DeleteEmployee(@context.EmployeeID))" />
+        </RowTemplate>
+    </MudTable>
 
+</div>
 
 <MudDrawer @bind-Open="@_open" Width="600px" Height="100%" Anchor="_anchor" Elevation="1" Variant="@DrawerVariant.Temporary" Style="background-color:#484848; color:white;">
-    <div class=" container-fluid">
+    <div class=" pt-5">
         <div>
             <EditForm Model="@_newEmployee" OnValidSubmit="@AddEmployee">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
-                <div class="align-items-center">
-                    <div class="row ">
-                        <MudTextField Class="input" T="string" Label="Name" Variant="Variant.Filled" @bind-Value="@_newEmployee.Name" />
-                        <MudTextField Class="input" T="string" Label="LastName" Variant="Variant.Filled" @bind-Value="@_newEmployee.LastName" />
-                        <MudTextField Class="input" T="string" Label="Username" Variant="Variant.Filled" @bind-Value="_newEmployee.Username" />
-                        <MudTextField Class="input" T="string" Label="Password" Variant="Variant.Filled" @bind-Value="_newEmployee.Password" />
-                    </div>
+                <div class="pt-3">
+
+                    <MudTextField Class="input" T="string" Label="Name" Variant="Variant.Filled" @bind-Value="@_newEmployee.Name" />
+                    <MudTextField Class="input" T="string" Label="LastName" Variant="Variant.Filled" @bind-Value="@_newEmployee.LastName" />
+                    <MudTextField Class="input" T="string" Label="Username" Variant="Variant.Filled" @bind-Value="_newEmployee.Username" />
+                    <MudTextField Class="input" T="string" Label="Password" Variant="Variant.Filled" @bind-Value="_newEmployee.Password" />
+
                 </div>
                 <div class="row pt-4">
                     <button type="submit" class="btn btn-success offset-8 col-2"> Add </button>
@@ -51,6 +58,7 @@
         </div>
     </div>
 </MudDrawer>
+
 
 @code {
     private IEnumerable<Employee> _employee = new List<Employee>();
@@ -76,17 +84,51 @@
     private async Task GetEmployee()
     {
         _employee = await Http.GetFromJsonAsync<IEnumerable<Employee>>("/Employees");
+
     }
 
 
     private async Task AddEmployee()
     {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
         if (_newEmployee != null)
         {
-            await Http.PostAsJsonAsync<CreateEmployee>("/Employees", _newEmployee);
-            StateHasChanged();
+            var result = await Http.PostAsJsonAsync<CreateEmployee>("/Employees", _newEmployee);
+            if (result.IsSuccessStatusCode)
+            {
+                DialogService.Show<DialogSucces>("Employee is added", options);
+                await GetEmployee();
+                StateHasChanged();
+            }
+            if (!result.IsSuccessStatusCode)
+            {
+                DialogService.Show<DialogError>("Failed to add employee ", options);
+
+            }
         }
     }
+
+    private async Task DeleteEmployee(int Id)
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        if (Id != null)
+        {
+            var result = await Http.DeleteAsync($"/Employees/{Id}");
+
+            if (result.IsSuccessStatusCode)
+            {
+                DialogService.Show<DialogSucces>("Employee is deleted", options);
+                await GetEmployee();
+                StateHasChanged();
+            }
+            if (!result.IsSuccessStatusCode)
+            {
+                DialogService.Show<DialogError>("Failed to delete employee ", options);
+
+            }
+        }
+    }
+
 }
 
 
