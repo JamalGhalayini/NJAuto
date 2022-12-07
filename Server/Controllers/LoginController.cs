@@ -30,7 +30,7 @@ namespace NJAuto.Server.Controllers
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] LoginUser request)
         {
-            
+
             var user = await _userManager.FindByNameAsync(request.Username);
             if (user is null || !await _userManager.CheckPasswordAsync(user, request.Password))
             {
@@ -38,10 +38,10 @@ namespace NJAuto.Server.Controllers
             }
 
             var authClaims = new List<Claim>
-      {
-        new Claim(ClaimTypes.NameIdentifier, user.Id),
-        new Claim(ClaimTypes.Name, user.UserName)
-      };
+            {
+              new Claim(ClaimTypes.NameIdentifier, user.Id),
+              new Claim(ClaimTypes.Name, user.UserName)
+            };
 
             var roles = await _userManager.GetRolesAsync(user);
 

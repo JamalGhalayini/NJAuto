@@ -9,56 +9,54 @@ using System.Security.Claims;
 using System.Text;
 
 namespace NJAuto.Server.Controllers
+{
+    [Route("/registerController")]
+    [ApiController]
+    public class RegisterController : Controller
     {
-        [Route("/registerController")]
-        [ApiController]
-        public class RegisterController : Controller
+
+        private readonly UserManager<UserEntity> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        public RegisterController(UserManager<UserEntity> userManager,
+          RoleManager<IdentityRole> roleManager)
         {
-            
-            private readonly UserManager<UserEntity> _userManager;
-            private readonly RoleManager<IdentityRole> _roleManager;
-            public RegisterController( UserManager<UserEntity> userManager,
-              RoleManager<IdentityRole> roleManager)
+            _userManager = userManager;
+            _roleManager = roleManager;
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Register([FromBody] RegisterUser request)
+        {
+            var existingUser = await _userManager.FindByNameAsync(request.Username);
+            if (existingUser is not null)
             {
-              
-                _userManager = userManager;
-                _roleManager = roleManager;
+                return BadRequest("Username is already taken");
             }
 
-
-            [HttpPost]
-            public async Task<IActionResult> Register([FromBody] RegisterUser request)
+            if (await _roleManager.FindByNameAsync("Admin") is null)
             {
-                var existingUser = await _userManager.FindByNameAsync(request.Username);
-                if (existingUser is not null)
+                await _roleManager.CreateAsync(new()
                 {
-                    return BadRequest("Username is already taken");
-                }
-
-                if (await _roleManager.FindByNameAsync("Admin") is null)
-                {
-                    await _roleManager.CreateAsync(new()
-                    {
-                        Name = "Admin"
-
-                    });
-                }
-
-                var user = new UserEntity()
-                {
-                    UserName = request.Username,
-                };
-
-                var result = await _userManager.CreateAsync(user, request.Password);
-
-                await _userManager.AddToRoleAsync(user, "Admin");
-
-                if (!result.Succeeded)
-                {
-                    return BadRequest(result.Errors);
-                }
-
-                return Ok("User created");
+                    Name = "Admin"
+                });
             }
+
+            var user = new UserEntity()
+            {
+                UserName = request.Username,
+            };
+
+            var result = await _userManager.CreateAsync(user, request.Password);
+
+            await _userManager.AddToRoleAsync(user, "Admin");
+
+            if (!result.Succeeded)
+            {
+                return BadRequest(result.Errors);
+            }
+
+            return Ok("User created");
         }
     }
+}

@@ -1,7 +1,6 @@
 global using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using NJAuto.Server.Data;
@@ -64,6 +63,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSwaggerGen();
 builder.Services.AddRazorPages();
 builder.Services.AddTransient<ICarService, CarService>();
+builder.Services.AddTransient<IEmployeesService, EmployeesService>();   
+
 
 // Adding Authentication
 builder.Services.AddAuthentication(options =>
